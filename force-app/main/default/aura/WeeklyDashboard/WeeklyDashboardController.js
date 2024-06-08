@@ -286,7 +286,7 @@
     getStoriesFromStoryFilter: function (component, event, helper) {
         component.set("v.storiesFiltered", event.getParam('value'));
         component.find("employeeFilterButton").closeModal();
-
+//test
         //AA 6/4/2024 #1590 Synchronized filter
         if (component.get("v.employeeFiltered").length == 0 && event.getParam('value').length > 0) {
             component.set("v.filterController", 'stories');
