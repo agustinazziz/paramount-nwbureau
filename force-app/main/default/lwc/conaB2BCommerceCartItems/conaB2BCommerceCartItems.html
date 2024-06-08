@@ -1,0 +1,259 @@
+<template lwc:render-mode="light">
+    <div lwc:if={isLoading} class="loader-wrapper">
+        <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+    </div>
+    <div>
+        <div class="order-charge-section slds-grid slds-wrap" lwc:if={alertOrderChargeFlag}>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 charge-message-section">
+                <div class="slds-p-right_small order-charge-warning-icon-section">
+                    <svg x="0px" y="0px" viewBox="0 0 24 24"
+                        style="enable-background:new 0 0 24 24; fill:#EFA432; height:24px; width:24px">
+                        <path d="M12,23C5.9,23,1,18.1,1,12S5.9,1,12,1s11,4.9,11,11S18.1,23,12,23z M12,3c-5,0-9,4-9,9c0,5,4,9,9,9c5,0,9-4,9-9
+                        C21,7,17,3,12,3z M12,17c-0.6,0-1-0.4-1-1s0.4-1,1-1h0c0.6,0,1,0.4,1,1S12.6,17,12,17z M12,13c-0.6,0-1-0.4-1-1V8c0-0.6,0.4-1,1-1
+                        s1,0.4,1,1v4C13,12.6,12.6,13,12,13z" />
+                    </svg>
+                </div>
+                <div>
+                    <div class="order-charge-header slds-p-bottom_xx-small">{orderChargeHeaderLabel}</div>
+                    <div class="order-charge-message">{orderChargeMessageLabel}</div>
+                </div>
+                <div class="closeIcon">
+                    <span class="slds-p-left_medium" onclick={handleNavigateToProductListPage}>
+                        <svg x="0px" y="0px" viewBox="0 0 24 24"
+                            style="enable-background:new 0 0 24 24; height:24px; width:24px">
+                            <path
+                                d="M18,19c-0.3,0-0.5-0.1-0.7-0.3L12,13.4l-5.3,5.3c-0.4,0.4-1,0.4-1.4,0s-0.4-1,0-1.4l5.3-5.3L5.3,6.7c-0.4-0.4-0.4-1,0-1.4
+                            s1-0.4,1.4,0l5.3,5.3l5.3-5.3c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4L13.4,12l5.3,5.3c0.4,0.4,0.4,1,0,1.4C18.5,18.9,18.3,19,18,19z" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12">
+                <div class="slds-float--right continuePosition">
+                    <a><span class="continue-shopping"
+                            onclick={handleNavigateToProductListPage}>{CONA_B2BContinueShopping}</span></a>
+                    <span class="slds-p-left_medium closeIconContinue">
+                        <a onclick={handleCloseOrderChargeModal}>
+                            <svg x="0px" y="0px" viewBox="0 0 24 24"
+                                style="enable-background: new 0 0 24 24; height: 24px; width: 24px">
+                                <path
+                                    d="M18,19c-0.3,0-0.5-0.1-0.7-0.3L12,13.4l-5.3,5.3c-0.4,0.4-1,0.4-1.4,0s-0.4-1,0-1.4l5.3-5.3L5.3,6.7c-0.4-0.4-0.4-1,0-1.4
+                            s1-0.4,1.4,0l5.3,5.3l5.3-5.3c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4L13.4,12l5.3,5.3c0.4,0.4,0.4,1,0,1.4C18.5,18.9,18.3,19,18,19z" />
+                            </svg>
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div lwc:if={showInactiveSection}>
+            <div class="out-of-stock-warning" lwc:if={showAlertOosAmlFlag}>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 out-of-stock-container">
+                    <div class="out-of-stock-icon">
+                        <svg x="0px" y="0px" viewBox="0 0 24 24"
+                            style="enable-background:new 0 0 24 24;fill:#EFA432; height:24px; width:24px;">
+                            <path d="M20.2,21.5H3.8c-1.1,0-1.7,0-2.2-0.4c-0.5-0.3-0.8-0.8-0.8-1.4c-0.1-0.6,0.2-1.2,0.8-2.1L9.8,3.4l0.9,0.5L9.8,3.4l0.9,0.5
+                        L9.8,3.4c0.5-0.9,0.8-1.5,1.4-1.7c0.5-0.2,1.1-0.2,1.6,0c0.6,0.3,0.9,0.8,1.4,1.7l8.2,14.2c0.5,0.9,0.8,1.5,0.8,2.1
+                        c-0.1,0.6-0.4,1.1-0.8,1.4C21.9,21.5,21.3,21.5,20.2,21.5z M2.8,19.5c0.2,0,0.6,0,1,0h16.4c0.4,0,0.8,0,1,0
+                        c-0.1-0.2-0.3-0.5-0.5-0.9L12.5,4.4c-0.2-0.3-0.4-0.7-0.5-0.9c-0.1,0.2-0.3,0.5-0.5,0.9l0,0L3.3,18.6C3.1,18.9,2.9,19.3,2.8,19.5z
+                        M12,18c-0.6,0-1-0.4-1-1s0.4-1,1-1h0c0.6,0,1,0.4,1,1S12.6,18,12,18z M12,14c-0.6,0-1-0.4-1-1V9c0-0.6,0.4-1,1-1s1,0.4,1,1v4
+                        C13,13.6,12.6,14,12,14z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="warning-header">{alertWarningHeader}</div>
+                        <lightning-formatted-rich-text class="warning-message"
+                            value={alertWarningMessage}></lightning-formatted-rich-text>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12">
+                    <div class="slds-float--right continuePosition">
+                        <a><span class="continue-shopping"
+                                onclick={handleNavigateToProductListPage}>{CONA_B2BContinueShopping}</span></a>
+                        <span class="slds-p-left_medium closeIconContinue">
+                            <a onclick={handleCloseOosAndAmlAlerts}>
+                                <svg x="0px" y="0px" viewBox="0 0 24 24"
+                                    style="enable-background:new 0 0 24 24; height:24px; width:24px">
+                                    <path
+                                        d="M18,19c-0.3,0-0.5-0.1-0.7-0.3L12,13.4l-5.3,5.3c-0.4,0.4-1,0.4-1.4,0s-0.4-1,0-1.4l5.3-5.3L5.3,6.7c-0.4-0.4-0.4-1,0-1.4
+                                s1-0.4,1.4,0l5.3,5.3l5.3-5.3c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4L13.4,12l5.3,5.3c0.4,0.4,0.4,1,0,1.4C18.5,18.9,18.3,19,18,19z" />
+                                </svg>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-p-vertical_small slds-m-bottom--large">
+                <div class="disabled-cart-items">
+                    <c-cona-b2-b-cart-items items={_inactiveItems} currency-iso-code={_currencyIsoCode}
+                        display-show-more={displayShowMoreButton} show-remove-item={showRemoveItem}
+                        show-product-image={showProductImage} show-product-variants={showProductVariants}
+                        show-price-per-unit={showPricePerUnit} price-per-unit-font-color={pricePerUnitFontColor}
+                        price-per-unit-font-size={pricePerUnitFontSize}
+                        original-price-font-color={originalPriceFontColor}
+                        original-price-font-size={originalPriceFontSize} actual-price-font-color={actualPriceFontColor}
+                        actual-price-font-size={actualPriceFontSize} show-total-prices={showTotalPrices}
+                        show-original-price={showOriginalPrice} show-actual-price={showActualPrice} show-sku={showSku}
+                        sku-label={skuLabel} minimum-value-guide-text={minimumValueGuideText}
+                        maximum-value-guide-text={maximumValueGuideText}
+                        increment-value-guide-text={incrementValueGuideText} show-promotions={showPromotions}
+                        promotions-applied-savings-button-text={promotionsAppliedSavingsButtonText}
+                        promotions-applied-savings-button-font-color={promotionsAppliedSavingsButtonFontColor}
+                        promotions-applied-savings-button-font-size={promotionsAppliedSavingsButtonFontSize}
+                        promotions-applied-savings-button-text-hover-color={promotionsAppliedSavingsButtonTextHoverColor}
+                        promotions-applied-savings-button-background-color={promotionsAppliedSavingsButtonBackgroundColor}
+                        promotions-applied-savings-button-background-hover-color={promotionsAppliedSavingsButtonBackgroundHoverColor}
+                        promotions-applied-savings-button-border-color={promotionsAppliedSavingsButtonBorderColor}
+                        promotions-applied-savings-button-border-radius={promotionsAppliedSavingsButtonBorderRadius}
+                        disabled={showInactiveSection} product-field-mapping={productFieldMappingValue}
+                        oncartshowmore={handleCartShowMore} ondeletecartitem={handleDeleteCartItem}
+                        onupdatecartitem={handleUpdateCartItem}
+                        onnavigatetoproduct={handleProductNavigation}></c-cona-b2-b-cart-items>
+                </div>
+            </div>
+        </div>
+        <div class="slds-grid slds-wrap slds-gutters_x-small item-action-bar delete-selected-text actionItemsAlign"
+            lwc:if={showCartItem}>
+            <div class="slds-col slds-size_5-of-12 slds-medium-size_3-of-12 actionItemsAlign">
+                <div class="pointer pointer-cursordis slds-grid slds-wrap">
+                    <lightning-button class="pointer-cursor" alternative-text={cartItemsMenuBar.deleteItemsFromCart}
+                        variant="bare" icon-name="utility:delete" icon-position="left" onclick={removeSelectedItems}
+                        title={cartItemsMenuBar.deleteItemsFromCart} label={cartItemsMenuBar.deleteItemsFromCart}
+                        disabled={isDisabled}></lightning-button>
+                </div>
+            </div>
+            <div class="slds-col slds-size_7-of-12 slds-medium-size_9-of-12 item-action-bar-options actionItemsAlign">
+                <div class="actionItemsAlign sortByDropdown">
+                    <lightning-button-menu class="pointer-cursor" alternative-text={cartItemsMenuBar.sortBy}
+                        variant="bare" icon-name="utility:chevrondown" menu-alignment="auto" onselect={handleSortSelect}
+                        title={cartItemsMenuBar.sortBy} label={cartItemsMenuBar.sortBy}>
+                        <template for:each={productFieldsForSort} for:item="fields">
+                            <lightning-menu-item value={fields.value} label={fields.label}
+                                key={fields.value}></lightning-menu-item>
+                        </template>
+                    </lightning-button-menu>
+                </div>
+                <div class="clearCart">
+                    <div class="pointer-cursor">
+                        <lightning-button class="pointer-cursor" alternative-text={cartItemsMenuBar.clearCart}
+                            variant="bare" icon-name="utility:cart" icon-position="left"
+                            onclick={handleClearCartButtonClicked} title={cartItemsMenuBar.clearCart}
+                            label={cartItemsMenuBar.clearCart}></lightning-button>
+                    </div>
+                </div>
+                <div class="exportCart">
+                    <lightning-button variant="bare" label={cartItemsMenuBar.exportCart}
+                        title={cartItemsMenuBar.exportCart} icon-name="utility:download" icon-position="left"
+                        class="pointer-cursor exportbutton" onclick={handleExport}></lightning-button>
+                </div>
+                <div class="cartPageAction-mobile">
+                    <lightning-button-menu class="cartPageAction-dropdown" icon-name="utility:threedots_vertical"
+                        icon-position="left" variant="border-inverse" menu-alignment="auto">
+                        <lightning-menu-item variant="bare" icon-name="utility:cart" icon-position="left"
+                            class="pointer-cursor" onclick={handleClearCartButtonClicked}
+                            value={cartItemsMenuBar.clearCart} label={cartItemsMenuBar.clearCart}>
+                        </lightning-menu-item>
+                        <lightning-menu-item variant="bare" label={cartItemsMenuBar.exportCart}
+                            title={cartItemsMenuBar.exportCart} icon-name="utility:download" icon-position="left"
+                            class="pointer-cursor exportbutton" onclick={handleExport}>
+                        </lightning-menu-item>
+                    </lightning-button-menu>
+                </div>
+            </div>
+        </div>
+        <div class="cart-items" lwc:if={showCartItem}>
+            <c-cona-b2-b-cart-items class="active-cart-items" items={_activeItems} selected-items={selectedItems}
+                currency-iso-code={_currencyIsoCode} display-show-more={displayShowMoreButton}
+                show-remove-item={showRemoveItem} show-product-image={showProductImage}
+                show-product-variants={showProductVariants} show-price-per-unit={showPricePerUnit}
+                price-per-unit-font-color={pricePerUnitFontColor} price-per-unit-font-size={pricePerUnitFontSize}
+                original-price-font-color={originalPriceFontColor} original-price-font-size={originalPriceFontSize}
+                actual-price-font-color={actualPriceFontColor} actual-price-font-size={actualPriceFontSize}
+                show-total-prices={showTotalPrices} show-original-price={showOriginalPrice}
+                show-actual-price={showActualPrice} show-sku={showSku} sku-label={skuLabel}
+                minimum-value-guide-text={minimumValueGuideText} maximum-value-guide-text={maximumValueGuideText}
+                increment-value-guide-text={incrementValueGuideText} show-promotions={showPromotions}
+                promotions-applied-savings-button-text={promotionsAppliedSavingsButtonText}
+                promotions-applied-savings-button-font-color={promotionsAppliedSavingsButtonFontColor}
+                promotions-applied-savings-button-font-size={promotionsAppliedSavingsButtonFontSize}
+                promotions-applied-savings-button-text-hover-color={promotionsAppliedSavingsButtonTextHoverColor}
+                promotions-applied-savings-button-background-color={promotionsAppliedSavingsButtonBackgroundColor}
+                promotions-applied-savings-button-background-hover-color={promotionsAppliedSavingsButtonBackgroundHoverColor}
+                promotions-applied-savings-button-border-color={promotionsAppliedSavingsButtonBorderColor}
+                promotions-applied-savings-button-border-radius={promotionsAppliedSavingsButtonBorderRadius}
+                product-field-mapping={productFieldMappingValue} oncartshowmore={handleCartShowMore}
+                ondeletecartitem={handleDeleteCartItem} onupdatecartitem={handleUpdateCartItem}
+                onnavigatetoproduct={handleProductNavigation}>
+                <section slot="showMore">
+                    <slot name="showMore"></slot>
+                </section>
+            </c-cona-b2-b-cart-items>
+        </div>
+        <!-- Alert Modal for Proceed to checkout update-->
+        <c-cona-b2-b-dialog class="alert-modal__container" oncancel={handleCancelAlertModal}>
+            <h2 class="alert-modal__header slds-p-vertical_x-small slds-p-horizontal_medium">
+                {modalAlertWarningLabel.modalAlertHeader}</h2>
+            <div if:true={showOrderChargeModal}
+                class="order-charge__container slds-p-vertical_small slds-p-horizontal_medium">
+                <h3 class="alert-modal-moq__header slds-p-bottom_x-small">{orderChargeLabels.moqLabel}</h3>
+                <lightning-formatted-rich-text class="alert-modal-moq__message"
+                    value={modalAlertWarningLabel.modalAlertMoqMessage}></lightning-formatted-rich-text>
+            </div>
+            <div if:true={oosAlert} class="product-oos__container slds-p-vertical_small slds-p-horizontal_medium">
+                <div>
+                    <hr class="slds-m-top_x-small slds-m-bottom_medium">
+                </div>
+                <h3 class="alert-modal-oos__header slds-p-bottom_x-small">{modalAlertWarningLabel.modalAlertOosHeader}
+                </h3>
+                <lightning-formatted-rich-text class="alert-modal-oos__message"
+                    value={modalAlertWarningLabel.modalAlertOosMessage}></lightning-formatted-rich-text>
+            </div>
+            <div if:true={amlAlert} class="product-aml__container slds-p-vertical_small slds-p-horizontal_medium">
+                <div>
+                    <hr class="slds-m-top_x-small slds-m-bottom_medium">
+                </div>
+                <h3 class="alert-modal-aml__header slds-p-bottom_x-small">{outOfAmlWarningLabels.outOfAmlWarningHeader}
+                </h3>
+                <lightning-formatted-rich-text class="alert-modal-aml__message"
+                    value={outOfAmlWarningLabels.outOfAmlWarningMessage}></lightning-formatted-rich-text>
+            </div>
+            <template if:true={hasAlerts}>
+                <div lwc:if={showInactiveSection} class="slds-p-vertical_small slds-p-horizontal_medium">
+                    <c-cona-b2-b-items-to-review product-list={_inactiveItems}></c-cona-b2-b-items-to-review>
+                </div>
+            </template>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                    <button onclick={handleBackToCart}
+                        class="slds-size_1-of-1 slds-button slds-button_neutral buttonstyle">
+                        {backtoCartlabel.BacktoCart}
+                    </button>
+                </div>
+                <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                    <button onclick={handleModalProceedToCheckout} disabled={isCheckoutButtonDisabled}
+                        class="slds-size_1-of-1 slds-button slds-button_brand proceed-checkout-button">
+                        {cartSummaryLabels.checkoutButton}
+                    </button>
+                </div>
+            </div>
+        </c-cona-b2-b-dialog>
+        <!-- Clear Cart Modal -->
+        <c-cona-b2-b-dialog header={clearCartConfirmationLabels.clearCartConfirmationHeader} class="clear-cart__modal">
+            <!-- Modal body (Clear cart cancel and confirmation buttons)-->
+            <div>{clearCartConfirmationLabels.clearCartConfirmationBody}</div>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                    <button onclick={handleModalCancelButtonClicked}
+                        class="slds-size_1-of-1 slds-button slds-button_neutral buttonstyle">
+                        {clearCartConfirmationLabels.cancelButtonLabel}
+                    </button>
+                </div>
+                <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                    <button onclick={handleModalClearCartButtonClicked}
+                        class="slds-size_1-of-1 slds-button slds-button_brand">
+                        {clearCartConfirmationLabels.clearCartLabel}
+                    </button>
+                </div>
+            </div>
+        </c-cona-b2-b-dialog>
+    </div>
+</template>

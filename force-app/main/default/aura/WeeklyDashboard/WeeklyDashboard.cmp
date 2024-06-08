@@ -1,0 +1,220 @@
+<aura:component controller="weeklyDashboardController"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,force:lightningQuickAction">
+
+    <aura:dependency resource="markup://c:employeeWeek" type="COMPONENT" />
+    <aura:dependency resource="markup://c:SectionHeader" type="COMPONENT" />
+    <aura:attribute name="currentWeek" type="Object"></aura:attribute>
+    <aura:attribute name="dashboardDate" type="Date" default="" />
+    <aura:attribute name="employees" type="Aura.Component[]" />
+    <aura:attribute name="newHeaderComponent" type="Aura.Component" />
+    <aura:attribute name="bureau" type="String" />
+    <aura:attribute name="showNewEmployeeModal" type="Boolean" default="false" />
+    <aura:attribute name="showCloneWeekModal" type="Boolean" default="false" />
+    <aura:attribute name="createEmpModal" type="Boolean" default="false" />
+    <aura:attribute name="bureauOptions" type="List" />
+    <aura:attribute name="weekData" type="List" />
+    <aura:attribute name="weekDataClean" type="List" />
+    <aura:attribute name="employeeData" type="Object" />
+    <aura:handler name="init" value="{!this}" action="{!c.initializeComponent}" />
+    <aura:handler name="change" value="{!v.dashboardDate}" action="{!c.handleStateChange}" />
+    <aura:handler name="change" value="{!v.bureau}" action="{!c.handleStateChange}" />
+    <aura:handler name="refreshViewEvent" event="c:refreshView" action="{!c.handleRefreshViewEvent}" />
+    <!-- AA 6/4/2024 #1590 Synchronized filter -->
+    <aura:attribute name="weekDataFilter" type="List" />
+    <aura:attribute name="filterController" type="String" />
+    <!-- GL 4/18/24 #1553: LWC storyFilterButton change begin here-->
+    <aura:attribute name="storiesFiltered" type="List" />
+    <aura:attribute name="employeeFiltered" type="List" />
+    <!-- input from storyFilterButton (LWC) -->
+
+    <!-- Header Buttons -->
+
+    <div class="slds-grid">
+        <div class="slds-col slds-size_1-of-8 slds-align-bottom slds-var-m-bottom_medium slds-var-p-right_small">
+            <!-- Bureau picklist -->
+            <lightning:combobox aura:id="bureauPicker" name="bureauPicker" label="Bureau" placeholder="Select a bureau"
+                value="{!v.bureau}" options="{!v.bureauOptions}" onchange="{! c.handleBureauChange}" />
+        </div>
+
+        <div class="slds-col slds-size_1-of-8 slds-align-bottom slds-var-p-right_small">
+            <c:batchProcessMonitor onmonitorevent="{! c.handleMonitorEvent}">
+            </c:batchProcessMonitor>
+            <!-- Date -->
+            <lightning:input aura:id="datePicker" name="datePicker" label="Date" type="date" value="{!v.dashboardDate}"
+                onchange="{!c.handleDateChange}" variant="label-stacked" class="slds-p-horizontal_none" />
+        </div>
+
+        <div class="slds-col slds-size_1-of-8 slds-align-bottom slds-var-m-bottom_medium slds-var-p-right_small">
+            <!-- Story Filter Multi-select picklist-->
+            <!-- GL 4/18/24 #1553: LWC storyFilterButton-->
+            <!-- AA 6/4/2024 #1590 Synchronized filter -->
+            <c:storyFilterButton 
+                weekDataClean="{!v.weekDataClean}" 
+                weekDataFilter="{!v.weekDataFilter}"
+                filterController="{!v.filterController}"
+                aura:id="storyFilterButton"
+                onvaluechange="{!c.getStoriesFromStoryFilter}">
+            </c:storyFilterButton>
+        </div>
+        <!-- GL 4/18/24 #1553: LWC storyFilterButton until this line-->
+
+        <div
+        class="slds-col slds-size_1-of-8 slds-align-bottom slds-var-m-bottom_medium slds-var-p-right_small">
+        <!-- AA 6/4/2024 #1590 Synchronized filter: Added weekDataFilter and filterController attributes.-->
+        <c:employeeFilterButton
+                weekDataClean="{!v.weekDataClean}"
+                weekDataFilter="{!v.weekDataFilter}"
+                filterController="{!v.filterController}"
+                aura:id="employeeFilterButton"
+                onvaluechange="{!c.getStoriesFromEmployeeFilter}"
+            >
+            </c:employeeFilterButton>
+        </div>
+
+        <div
+            class="slds-col slds-size_1-of-8 slds-align-bottom slds-var-m-bottom_small slds-var-p-right_x-small slds-var-p-left_xx-large">
+            <!-- Clone Week -->
+            <lightning:button aura:id="cloneWeek" label="Clone Week" onclick="{!c.cloneWeek}"
+                class="slds-button_stretch button-overflow">
+            </lightning:button>
+        </div>
+
+        <div
+            class="slds-col slds-size_1-of-8 slds-align-bottom slds-var-m-bottom_small slds-var-p-left_x-small slds-var-p-right_xx-large">
+            <!-- Previous Week -->
+            <lightning:button aura:id="previousWeekButton" label="Previous Week"
+                onclick="{!c.handlePreviousWeekNavigation}" class="slds-button_stretch button-overflow">
+            </lightning:button>
+        </div>
+
+        <div class="slds-col slds-size_1-of-8 slds-align-bottom slds-var-m-bottom_small slds-var-p-left_small">
+            <!-- Add employee -->
+            <lightning:button label="Add Employee" iconName="utility:add" iconPosition="right" variant="brand"
+                onclick="{!c.openModal}" class="slds-button_stretch button-overflow" />
+        </div>
+
+        <div class="slds-col slds-size_1-of-8 slds-align-bottom slds-var-m-bottom_small slds-var-p-left_small">
+            <!--GC: Added button to redirect so users can import Assignments-->
+            <lightning:button label="Import Assignments" iconName="utility:add" iconPosition="right" variant="brand"
+                onclick="{!c.gotoList}" class="slds-button_stretch button-overflow" />
+        </div>
+    </div>
+    <!-- Sticky Headbar -->
+    <div aura:id="sticky-headbar" class="slds-grid">
+        <div class="slds-col slds-size_1-of-8 head-tag slds-align_absolute-center slds-m-around_none">
+            <div class="slds-p-around_small">
+                <img src="{!$Resource.ViacomCBS_Logo_Negative_RGB}" />
+            </div>
+        </div>
+        <div class="slds-col slds-size_1-of-8 head-tag slds-align_absolute-center slds-m-around_none">
+            <div class="responsive-day slds-p-around_small slds-text-heading_small">SUNDAY
+                {!v.currentWeek.weekDayNumbers.SUNDAY}</div>
+        </div>
+        <div class="slds-col slds-size_1-of-8 head-tag slds-align_absolute-center slds-m-around_none">
+            <div class="responsive-day slds-p-around_small slds-text-heading_small">MONDAY
+                {!v.currentWeek.weekDayNumbers.MONDAY}</div>
+        </div>
+        <div class="slds-col slds-size_1-of-8 head-tag slds-align_absolute-center slds-m-around_none">
+            <div class="responsive-day slds-p-around_small slds-text-heading_small">TUESDAY
+                {!v.currentWeek.weekDayNumbers.TUESDAY}</div>
+        </div>
+        <div class="slds-col slds-size_1-of-8 head-tag slds-align_absolute-center slds-m-around_none">
+            <div class="responsive-day slds-p-around_small slds-text-heading_small">WEDNESDAY
+                {!v.currentWeek.weekDayNumbers.WEDNESDAY}</div>
+        </div>
+        <div class="slds-col slds-size_1-of-8 head-tag slds-align_absolute-center slds-m-around_none">
+            <div class="responsive-day slds-p-around_small slds-text-heading_small">THURSDAY
+                {!v.currentWeek.weekDayNumbers.THURSDAY}</div>
+        </div>
+        <div class="slds-col slds-size_1-of-8 head-tag slds-align_absolute-center slds-m-around_none">
+            <div class="responsive-day slds-p-around_small slds-text-heading_small">FRIDAY
+                {!v.currentWeek.weekDayNumbers.FRIDAY}</div>
+        </div>
+        <div class="slds-col slds-size_1-of-8 head-tag slds-align_absolute-center slds-m-around_none">
+            <div class="responsive-day slds-p-around_small slds-text-heading_small">SATURDAY
+                {!v.currentWeek.weekDayNumbers.SATURDAY}</div>
+        </div>
+    </div>
+
+    <div aura:id="employeesContainer" class="assignment-container">{!v.employees}</div>
+
+    <div class="slds-grid grid-footer">
+        <div class="slds-col slds-size_1-of-8 new-employee-cell">
+            <div class="slds-align_absolute-center">
+                <lightning:button label="Add Employee" iconName="utility:add" iconPosition="right" variant="brand"
+                    onclick="{!c.openModal}" class="slds-button_stretch button-overflow" />
+            </div>
+        </div>
+    </div>
+    <!--MODAL-->
+    <aura:if isTrue="{!v.showNewEmployeeModal}">
+        <section role="dialog" tabindex="-1" aria-label="Meaningful description of the modal content" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_small">
+            <div class="slds-modal__container">
+                <div class="slds-modal__content slds-var-p-around_medium" id="modal-content-id-1">
+                    <h2 id="modal-heading-01"
+                        class="slds-modal__title slds-align_absolute-center slds-hyphenate slds-var-m-top_small">SELECT
+                        AN EMPLOYEE</h2>
+                    <div class="slds-form newEmployeeForm">
+                        <lightning:recordEditForm aura:id="recordEditForm" objectApiName="ScheduleAssociation__c">
+                            <div class="slds-form-element slds-form-element_stacked">
+                                <lightning:card>
+                                    <lightning:inputField aura:id="employeeId" name="employeeId" fieldName="Employee__c"
+                                        variant="label-stacked" />
+                                </lightning:card>
+                            </div>
+                            <div class="slds-form-element slds-form-element_stacked">
+                                <lightning:messages />
+                            </div>
+                        </lightning:recordEditForm>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button label="Cancel" variant="brand" onclick="{!c.closeModal}"></lightning:button>
+                    <lightning:button label="Add employee" variant="brand" onclick="{!c.handleAddEmployee}">
+                    </lightning:button>
+                    <lightning:button label="Create New Employee" variant="brand" onclick="{!c.handleCreateEmployee}">
+                    </lightning:button>
+
+                </footer>
+            </div>
+        </section>
+        <div aura:id="modalBackdrop" class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    <!--MODAL-->
+    <!--MODAL-->
+    <aura:if isTrue="{!v.showCloneWeekModal}">
+        <section role="dialog" tabindex="-1" aria-label="Meaningful description of the modal content" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_small">
+            <div class="slds-modal__container">
+                <div class="slds-modal__content slds-var-p-around_medium" id="modal-content-id-1">
+                    <h2 id="modal-heading-01"
+                        class="slds-modal__title slds-align_absolute-center slds-hyphenate slds-var-m-top_small">WEEK
+                        CLONE</h2>
+                    <lightning:flow aura:id="Cloning_for_a_Week_2_0" onstatuschange="{!c.handleFlowStatusChange}" />
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button label="Cancel" variant="brand" onclick="{!c.closeWeekClone}"></lightning:button>
+                </footer>
+            </div>
+        </section>
+        <div aura:id="modalBackdrop" class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    <!--MODAL-->
+    <!--MODAL-->
+    <aura:if isTrue="{!v.createEmpModal}">
+        <section role="dialog" tabindex="-1" aria-label="Meaningful description of the modal content" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_small">
+            <div class="slds-modal__container">
+                <div class="slds-modal__content slds-var-p-around_medium" id="modal-content-id-1">
+                    <lightning:flow aura:id="createEmpFlow" onstatuschange="{!c.handleFlowStatusChangeCE}" />
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button label="Cancel" variant="brand" onclick="{!c.closeCreateEmp}"></lightning:button>
+                </footer>
+            </div>
+        </section>
+        <div aura:id="modalBackdrop" class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    <!--MODAL-->
+</aura:component>

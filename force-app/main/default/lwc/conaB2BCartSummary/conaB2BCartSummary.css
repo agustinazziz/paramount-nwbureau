@@ -1,0 +1,58 @@
+:host {
+    --com-c-cart-summary-label-font-size: var(--dxp-s-text-heading-small-font-size);
+    --com-c-cart-summary-total-label-font-size: var(--dxp-s-text-heading-medium-font-size);
+    --com-c-cart-summary-total-font-weight: var(--dxp-c-strong-text-weight);
+}
+
+.original-price {
+    text-decoration: line-through;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    color: var(--com-c-cart-summary-original-text-color);
+    font-size: var(--com-c-cart-summary-original-text-size, var(--com-c-cart-summary-label-font-size));
+}
+.item {
+    display: flex;
+}
+.total-price {
+    background: #f8f8f8;
+    border-bottom: 1px dashed #dddbda;
+    border-top: 1px dashed #dddbda;
+}
+.border-bottom {
+    border-bottom: 1px dashed #dddbda;
+}
+.order-charge-amount {
+    background: #fffcf5;
+    border-top: 1px solid #efa432;
+    border-bottom: 1px solid #efa432;
+}
+.summaryCardClosed, 
+.summaryCardOpen {
+    position: relative;
+}
+.summary-open-close-icon {
+    position:absolute;
+    top: .5rem;
+    right: 1.5rem;
+}
+.subtotal-price, .shipping-price, .order-charge-amount, .deposit-amount, .tax-price {
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.total-price {
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+@media (max-width: 768px) {
+    .subtotal-price, .shipping-price, .order-charge-amount, .deposit-amount, .tax-price,
+    .item .dxp-text-body {
+        font-size: .875rem;
+    } 
+    .total-price,
+    .total-price .dxp-text-heading-small {
+        font-size: 1rem;
+    } 
+}

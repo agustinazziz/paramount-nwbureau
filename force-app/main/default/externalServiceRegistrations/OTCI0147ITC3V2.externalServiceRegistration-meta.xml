@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExternalServiceRegistration xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>GC 10/26/23: Uses the latest OpenAPI Spec sent by the Deloitte team.</description>
+    <label>OTCI0147ITC3V2</label>
+    <namedCredentialReference>OTCI0147_ITC2_QA</namedCredentialReference>
+    <operations>
+        <active>true</active>
+        <name>postsalesforceardocument</name>
+    </operations>
+    <registrationProviderType>Custom</registrationProviderType>
+    <schema>{
+  &quot;openapi&quot;: &quot;3.0.3&quot;,
+  &quot;info&quot;: {
+    &quot;title&quot;: &quot;Interface Definition for Salesforce&quot;,
+    &quot;description&quot;: &quot;Salesforce Boundary System will send invoices to S/4&quot;,
+    &quot;termsOfService&quot;: &quot;http://swagger.io/terms/&quot;,
+    &quot;contact&quot;: {
+      &quot;email&quot;: &quot;apiteam@paramount.com&quot;
+    },
+    &quot;license&quot;: {
+      &quot;name&quot;: &quot;Apache 2.0&quot;,
+      &quot;url&quot;: &quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot;
+    },
+    &quot;version&quot;: &quot;1.0.11&quot;
+  },
+  &quot;externalDocs&quot;: {
+    &quot;description&quot;: &quot;Find out more about Swagger&quot;,
+    &quot;url&quot;: &quot;http://swagger.io&quot;
+  },
+  &quot;servers&quot;: [{
+    &quot;url&quot;: &quot;https://cmapidev.paramount.com:443&quot;,
+    &quot;variables&quot;: {}
+  }],
+  &quot;tags&quot;: [{
+    &quot;name&quot;: &quot;Salesforce Invoice&quot;,
+    &quot;description&quot;: &quot;Submit AR to S/4&quot;,
+    &quot;externalDocs&quot;: {
+      &quot;description&quot;: &quot;Find out more&quot;,
+      &quot;url&quot;: &quot;http://swagger.io&quot;
+    }
+  }],
+  &quot;paths&quot;: {
+    &quot;/salesforce/ARDocument/&quot;: {
+      &quot;post&quot;: {
+        &quot;tags&quot;: [
+          &quot;Salesforce Invoice&quot;
+        ],
+        &quot;summary&quot;: &quot;Upload Salesforce Invoice&quot;,
+        &quot;description&quot;: &quot;&quot;,
+        &quot;requestBody&quot;: {
+          &quot;content&quot;: {
+            &quot;application/json&quot;: {
+              &quot;schema&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/Invoice&quot;
+              }
+            }
+          },
+          &quot;required&quot;: true
+        },
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;successful operation&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;$ref&quot;: &quot;#/components/schemas/APIResponse&quot;
+                },
+                &quot;example&quot;: {
+                  &quot;status&quot;: &quot;Success&quot;,
+                  &quot;invoiceId&quot;: 1234
+                }
+              }
+            }
+          },
+          &quot;400&quot;: {
+            &quot;description&quot;: &quot;Error&quot;,
+            &quot;content&quot;: {
+              &quot;text/plain&quot;: {
+                &quot;schema&quot;: {
+                  &quot;$ref&quot;: &quot;#/components/schemas/API400Response&quot;
+                },
+                &quot;example&quot;: {
+                  &quot;Error during request validation&quot;: &quot;[Path &apos;/usage/airDate&apos;] ECMA 262 regex \&quot;^(1[0-2]|0[1-9])/(3[01]|[12][0-9]|0[1-9])/[0-9]{4}$\&quot; does not match input string \&quot;03/17/202133333\&quot;&quot;
+                }
+              }
+            }
+          },
+          &quot;401&quot;: {
+            &quot;description&quot;: &quot;Unauthorized&quot;
+          }
+        },
+        &quot;security&quot;: [{
+          &quot;salesforce_auth&quot;: [
+            &quot;write:pets&quot;
+          ]
+        }]
+      }
+    }
+  },
+  &quot;components&quot;: {
+    &quot;schemas&quot;: {
+      &quot;Project&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;accountName&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;example&quot;: &quot;Account Name&quot;
+          },
+          &quot;accountNumber&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;projectId&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;example&quot;: &quot;project id&quot;
+          },
+          &quot;ownerName&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;example&quot;: &quot;owner name&quot;
+          }
+        }
+      },
+      &quot;Usage&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;required&quot;: [
+          &quot;totalRevenue&quot;,
+          &quot;currencyCode&quot;,
+          &quot;feeType&quot;,
+          &quot;usageSalesforceId&quot;
+        ],
+        &quot;properties&quot;: {
+          &quot;usageSalesforceId&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;feeType&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;feeNotes&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;nullable&quot;: true
+          },
+          &quot;totalRevenue&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;broadcastCodeShow&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;nullable&quot;: true
+          },
+          &quot;show&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;episodeSegmentTitle&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;airDate&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;pattern&quot;: &quot;^(1[0-2]|0[1-9])/(3[01]|[12][0-9]|0[1-9])/[0-9]{4}$&quot;
+          },
+          &quot;collectionType&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;assignment&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;nullable&quot;: true
+          },
+          &quot;serviceFeeType&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;nullable&quot;: true
+          },
+          &quot;currencyCode&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          }
+        }
+      },
+      &quot;Contract&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;required&quot;: [
+          &quot;invoiceDate&quot;,
+          &quot;invoiceFinalized&quot;,
+          &quot;billTo&quot;,
+          &quot;supressInvoice&quot;,
+          &quot;sourceBoundarySystemCode&quot;
+        ],
+        &quot;properties&quot;: {
+          &quot;invoiceDate&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;pattern&quot;: &quot;^(1[0-2]|0[1-9])/(3[01]|[12][0-9]|0[1-9])/[0-9]{4}$&quot;
+          },
+          &quot;billTo&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;purchaseOrder&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;nullable&quot;: true
+          },
+          &quot;paramountInternal&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;invoiceFinalized&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;projectTitle&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;nullable&quot;: true
+          },
+          &quot;sourceBoundarySystemCode&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;taxApplicable&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;supressInvoice&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          }
+        }
+      },
+      &quot;Invoice&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;required&quot;: [
+          &quot;invoiceId&quot;
+        ],
+        &quot;properties&quot;: {
+          &quot;invoiceId&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;project&quot;: {
+            &quot;$ref&quot;: &quot;#/components/schemas/Project&quot;
+          },
+          &quot;contract&quot;: {
+            &quot;$ref&quot;: &quot;#/components/schemas/Contract&quot;
+          },
+          &quot;usage&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;items&quot;: {
+              &quot;$ref&quot;: &quot;#/components/schemas/Usage&quot;
+            }
+          }
+        }
+      },
+      &quot;APIResponse&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;errorCode&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;errorDescription&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;status&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [
+              &quot;Success&quot;,
+              &quot;Error&quot;
+            ]
+          },
+          &quot;invoiceId&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          }
+        }
+      },
+      &quot;API400Response&quot;: {
+        &quot;type&quot;: &quot;string&quot;,
+        &quot;properties&quot;: {
+          &quot;Error during request validation&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          }
+        }
+      }
+    },
+    &quot;securitySchemes&quot;: {
+      &quot;salesforce_auth&quot;: {
+        &quot;type&quot;: &quot;oauth2&quot;,
+        &quot;flows&quot;: {
+          &quot;clientCredentials&quot;: {
+            &quot;tokenUrl&quot;: &quot;https://cmapidev.paramount.com:443/token&quot;,
+            &quot;scopes&quot;: {
+              &quot;write&quot;: &quot;Write access to API&quot;
+            }
+          }
+        }
+      }
+    }
+  }
+}</schema>
+    <schemaType>OpenApi3</schemaType>
+    <serviceBinding>{&quot;host&quot;:&quot;cmapidev.paramount.com&quot;,&quot;basePath&quot;:&quot;&quot;,&quot;allowedSchemes&quot;:[&quot;HTTPS&quot;],&quot;requestMediaTypes&quot;:[],&quot;responseMediaTypes&quot;:[],&quot;compatibleMediaTypes&quot;:{}}</serviceBinding>
+    <status>Complete</status>
+    <systemVersion>4</systemVersion>
+</ExternalServiceRegistration>

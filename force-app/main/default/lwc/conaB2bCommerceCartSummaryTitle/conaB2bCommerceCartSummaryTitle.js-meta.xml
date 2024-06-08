@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <description>Cona B2B Commerce Cart Summary Title</description>
+    <isExposed>true</isExposed>
+    <masterLabel>Cona B2B Commerce Cart Summary Title</masterLabel>
+
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+
+</LightningComponentBundle>

@@ -1,0 +1,78 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 05-22-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+
+<template>
+    <label class="slds-form-element__label">Employee</label>
+  
+    <div class={dropdownClass}>
+      <!-- Select Employee Button -->
+      <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-size_1-of-1" aria-haspopup="true"
+        aria-expanded="true" title="Select employee" onclick={handleClick}>
+        <div class="slds-grid slds-wrap slds-size_1-of-1 slds-align_absolute-center">
+          <div class="slds-col slds-size_1-of-12"></div>
+          <div class="slds-col slds-size_9-of-12 slds-text-align_left"> 
+            <p class="slds-text-color_default buttonOverflow">
+              <!-- AA 6/4/2024 #1590 Synchronized filter -->
+              <lightning-icon 
+                lwc:if={isFiltering}
+                icon-name="utility:filterList" 
+                alternative-text="Filtered" 
+                size="xx-small" 
+                title="Filtered"
+              ></lightning-icon>
+              &nbsp;
+            Select Employee
+            </p>
+          </div> 
+          <div class="slds-col slds-size_2-of-12 slds-align_absolute-center">
+            <lightning-icon icon-name="utility:down" alternative-text="down!" title="down"
+              size="xx-small"></lightning-icon>
+          </div>
+        </div> 
+        <span class="slds-assistive-text">Select Employee</span>
+      </button>
+      <!-- Dropdown Modal -->
+      <div class="slds-dropdown slds-dropdown_left slds-size_1-of-1">
+        <ul class="slds-dropdown__list" role="menu" aria-label="Show More">
+          <!-- All -->
+          <li class="slds-dropdown__item slds-var-p-vertical_small slds-var-p-horizontal_small checkBackground"
+            role="presentation" data-value="All" onclick={handleChange}>
+            <div class="slds-grid slds-wrap">
+              <div class="slds-col slds-size_1-of-6 slds-align_absolute-center">
+                <lightning-icon icon-name="utility:check" alternative-text="check!" title="check" size="x-small"
+                  class={allClass}></lightning-icon>
+              </div> 
+              <span class="slds-col slds-size_5-of-6 slds-truncate" title="All">All</span> 
+            </div> 
+          </li> 
+          <!-- Scrollable Options -->
+          <div class="slds-scrollable_y scrollableDiv" tabindex="0">
+            <template for:each={otherEmployees} for:item="employee">
+              <div key={employee.label}>
+                <li class="slds-dropdown__item slds-var-p-vertical_small slds-var-p-horizontal_small checkBackground"
+                  role="presentation" data-value={employee.value} onclick={handleChange}>
+                  <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-6 slds-align_absolute-center">
+                      <lightning-icon icon-name="utility:check" alternative-text="check!" title="check" size="x-small"
+                        class={employee.class}></lightning-icon>
+                    </div>
+                    <span class="slds-col slds-size_5-of-6 slds-truncate" title={employee.label}>{employee.label}</span>
+                  </div>
+                </li>
+              </div>
+            </template>
+          </div>
+        </ul>
+        <!-- Cancel/Filter Buttons -->
+        <div class="slds-grid slds-var-p-horizontal_xxx-small">
+          <div onclick={closeModal} class="slds-button slds-button_stretch slds-button_neutral buttonConfirm">Cancel</div>
+          <div onclick={send} class="slds-button slds-button_stretch slds-button_brand buttonConfirm">Filter</div>
+        </div>
+      </div>
+    </div>
+  </template>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>CONA B2B Commerce Cart Items</masterLabel>
+    <description>CONA B2B Commerce Cart Item</description>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <!-- Item Level Data  -->
+            <property name="items" type="String" default="{!Cart.Items}" />
+            <property name="hasNextPageItems" type="String" default="{!Cart.Pagination.hasNextPage}"/>
+            <property name="currencyIsoCode" type="String" default="{!Cart.Details.currencyIsoCode}" />
+            <property name="showRemoveItem" type="Boolean" default="true"/>
+            <property name="displayShowMoreItems" type="Boolean" default="true"/>
+            <!-- Product Details Content -->
+            <property name="showSku" type="Boolean" default="true"/>
+            <property name="skuLabel" type="String" default="SKU#"  />
+            <property name="showProductImage" type="Boolean" default="true" />
+            <property name="showProductVariants" type="Boolean" default="true"/>
+            <property name="productFieldMapping" type="B2BProductDetailSummaryFieldMapping" label="Fields"/>
+            <!-- Item Level Data  -->
+            <property name="enableInventoryCheck" type="Boolean" default="false" label="Enable Inventory Check"/>
+            <!-- Price Per Unit Content -->
+            <property name="showPricePerUnit" type="Boolean" default="true"/>
+            <property name="pricePerUnitFontColor" type="Color"/>
+            <property name="pricePerUnitFontSize" type="String" default="medium" />
+            <property name="showTotalPrices" type="Boolean" default="true"/>
+            <!-- Original Price Content -->
+            <property name="showOriginalPrice" type="Boolean" default="true"/>
+            <property name="originalPriceFontColor" type="Color" default="rgb(116, 116, 116)"/>
+            <property name="originalPriceFontSize" type="String" default="small" />
+            <!-- Actual Price Content -->
+            <property name="showActualPrice" type="Boolean" default="true"/>
+            <property name="actualPriceFontColor" type="Color"/>
+            <property name="actualPriceFontSize" type="String" default="medium" />
+            <!-- Promotion Amount Content -->
+            <property name="showPromotions" type="Boolean" default="true"/>
+            <property name="promotionsAppliedSavingsButtonText" type="String" default="Saved {amount}" />
+            <property name="promotionsAppliedSavingsButtonFontColor" type="Color"/>
+            <property name="promotionsAppliedSavingsButtonFontSize" type="String" default="small" />
+            <property name="promotionsAppliedSavingsButtonTextHoverColor" type="Color"/>
+            <property name="promotionsAppliedSavingsButtonBackgroundColor" type="Color"/>
+            <property name="promotionsAppliedSavingsButtonBackgroundHoverColor" type="Color"/>
+            <property name="promotionsAppliedSavingsButtonBorderColor" type="Color"/>
+            <property name="promotionsAppliedSavingsButtonBorderRadius" type="Integer" min="0" max="20" default="20"/>
+            <!-- Product Quantity Rule Content -->
+            <property name="minimumValueGuideText" type="String" default="Minimum quantity is {0}" />
+            <property name="maximumValueGuideText" type="String" default="Maximum quantity is {0}" />
+            <property name="incrementValueGuideText" type="String" default="Sold in increments of {0}" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,141 @@
+.frameHeight {
+    height: 28rem;
+    width: 100%;
+    border: 0px;
+}
+
+.blur-section {
+    filter: blur(2px);
+}
+
+.spinnerPosition {
+    position: absolute;
+}
+
+.iframe-container {
+    position: relative;
+    height: 28rem;
+    overflow: auto;
+}
+
+.paymentIconImg {
+    width: 1.25rem;
+    height: 0.875rem;
+}
+.colorBlack {
+    color: black;
+    align-items: baseline;
+}
+.centeralign{
+    align-items: baseline;
+}
+
+.paymentMethodBox {
+    height: 3.75rem;
+    border-radius: 0.3rem;
+    border-color: #dddbda;
+    cursor: pointer;
+    word-wrap: break-word;
+    white-space: break-spaces;
+    text-align: center;
+}
+
+.paymentMethodBox--disabled {
+    background-color: var(--sds-c-button-brand-color-background-disabled,#C9C7C5);
+    border-color: var(--sds-c-button-brand-color-border-disabled,#C9C7C5);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.paymentMethodBox:hover {
+    border-color: red;
+}
+.paymentMethodBox:active {
+    border-color: red;
+}
+.paymentMethodBoxFocus {
+    border-color: red;
+}
+.paymentMethodBoxFocus:hover {
+    border-color: red;
+}
+
+.headingDiv {
+    background-color: #f8f8f8;
+}
+
+.boldFont {
+    font-weight: 600;
+}
+
+.termsConditionIcon {
+    height: 1rem;
+    width: 1rem;
+}
+
+.termsConditionsText {
+    font-size: 0.875rem;
+    color: #3e3e3c;
+}
+
+.termsConditionsSubText {
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: #f40000;
+}
+
+.poNumberField {
+    width: 15.125rem;
+}
+.poNumberField input {
+    text-align: left;
+}
+
+:host {
+    /* Your CSS goes here */
+    --dxp-s-form-element-color-background: #ffffff;
+    --dxp-s-form-element-color-background-active: #ffffff;
+    --dxp-s-form-element-color-border: #dddbda;
+    --dxp-s-body-font-size: 0.75rem;
+}
+
+.smallFont {
+    font-size: 0.75rem;
+}
+
+.fullHeight {
+    height: 100%;
+    color: black;
+    font-weight: bold;
+}
+
+.payMethodText {
+    font-weight: 500;
+}
+
+.infoIcon {
+    --sds-c-icon-color-foreground-default: #000000 !important;
+}
+
+.iconClass {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+.footertnc{
+    align-items: baseline;
+}
+.footertncbox {
+    align-items: center;
+    justify-content: space-between;
+}
+@media (max-width: 768px) { 
+    .paymentMethodBox-container {
+        overflow-x: auto;
+    }
+    .poNumberField{
+        width: auto;
+    }
+}
+.slds-input{
+    text-align: left!important;
+}

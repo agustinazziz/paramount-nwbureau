@@ -1,0 +1,823 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <assignments>
+        <description>GC 09/06/23: Add &quot;Bill_To__c&quot; to the returning string collection.</description>
+        <name>Assign_Bill_To</name>
+        <label>Assign Bill To</label>
+        <locationX>50</locationX>
+        <locationY>2042</locationY>
+        <assignmentItems>
+            <assignToReference>output_invoiceMissingFields</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>literal_BillTo</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>output_MissingFieldsCollectionLabels</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Bill To</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Invoice_Missing_Invoice_Date</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>GC 09/07/23: Assign &quot;Currency_Code__c&quot; to the list of missing fields for Final Usages.</description>
+        <name>Assign_Currency_Code</name>
+        <label>Assign Currency Code</label>
+        <locationX>270</locationX>
+        <locationY>1058</locationY>
+        <assignmentItems>
+            <assignToReference>output_finalUsagesMissingFields</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>literal_CurrencyCode</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>flag_FinalUsageWithMissingValue</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>output_MissingFieldsCollectionLabels</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Currency Code</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Final_Usage_Missing_Fee_Type</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>GC 09/07/23: Assign &quot;Fee_Type__c&quot; to the list of missing fields for Final Usages.</description>
+        <name>Assign_Fee_Type</name>
+        <label>Assign Fee Type</label>
+        <locationX>270</locationX>
+        <locationY>1358</locationY>
+        <assignmentItems>
+            <assignToReference>output_finalUsagesMissingFields</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>literal_FeeType</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>flag_FinalUsageWithMissingValue</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>output_MissingFieldsCollectionLabels</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Fee Type</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Final_Usage_Add_ID_to_List</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>GC 09/07/23: Assign the ID value to return.</description>
+        <name>Assign_Final_Usage_ID</name>
+        <label>Assign Final Usage ID</label>
+        <locationX>270</locationX>
+        <locationY>1658</locationY>
+        <assignmentItems>
+            <assignToReference>output_finalUsagesIds</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Verify_Final_Usages.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>output_MissingFieldsCollectionLabels</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Final Usage ID</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Verify_Final_Usages</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>GC 09/06/23: Add &quot;Invoice_Date__c&quot; to the returning string collection.</description>
+        <name>Assign_Invoice_Date</name>
+        <label>Assign Invoice Date</label>
+        <locationX>50</locationX>
+        <locationY>2342</locationY>
+        <assignmentItems>
+            <assignToReference>output_invoiceMissingFields</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>literal_InvoiceDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>output_MissingFieldsCollectionLabels</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Invoice Date</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Invoice_Missing_Invoice_Amount</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_No_Final_Usages</name>
+        <label>Assign No Final Usages</label>
+        <locationX>50</locationX>
+        <locationY>350</locationY>
+        <assignmentItems>
+            <assignToReference>output_finalUsagesMissingFields</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>literal_NoItems</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Verify_Final_Usages</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>GC 09/06/23: Add &quot;Source_Boundary_System_Code__c&quot; to the returning string collection.</description>
+        <name>Assign_Source_Boundary_System_Code</name>
+        <label>Assign Source Boundary System Code</label>
+        <locationX>50</locationX>
+        <locationY>2942</locationY>
+        <assignmentItems>
+            <assignToReference>output_invoiceMissingFields</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>literal_SourceBoundarySystemCode</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>output_MissingFieldsCollectionLabels</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Source Boundary System Code</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>GC 09/07/23: Assign &quot;Total_Revenue__c&quot; to the list of missing fields for Final Usages.</description>
+        <name>Assign_Total_Revenue</name>
+        <label>Assign Total Revenue</label>
+        <locationX>270</locationX>
+        <locationY>758</locationY>
+        <assignmentItems>
+            <assignToReference>output_finalUsagesMissingFields</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>literal_TotalRevenue</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>flag_FinalUsageWithMissingValue</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>output_MissingFieldsCollectionLabels</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Total Revenue</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Final_Usage_Missing_Currency_Code</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>GC 09/06/23: Add &quot;Invoice_Date__c&quot; to the returning string collection.</description>
+        <name>Copy_1_of_Assign_Invoice_Date</name>
+        <label>Assign Invoice Date</label>
+        <locationX>50</locationX>
+        <locationY>2642</locationY>
+        <assignmentItems>
+            <assignToReference>output_invoiceMissingFields</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Invoice_Amount__c</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>output_MissingFieldsCollectionLabels</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Invoice Amount</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Invoice_Missing_Source_Boundary_System_Code</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>GC 09/05/23: Invoice must have at least 1 related Final Usage.</description>
+        <name>Count_Final_Usages</name>
+        <label>Count Final Usages</label>
+        <locationX>182</locationX>
+        <locationY>134</locationY>
+        <assignmentItems>
+            <assignToReference>count_FinalUsages</assignToReference>
+            <operator>AssignCount</operator>
+            <value>
+                <elementReference>input_FinalUsagesRecords</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Final_Usages_No_Line_Items</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>GC 09/07/23: If encountered an issue, add the ID to the list.</description>
+        <name>Final_Usage_Add_ID_to_List</name>
+        <label>Final Usage: Add ID to List?</label>
+        <locationX>402</locationX>
+        <locationY>1550</locationY>
+        <defaultConnector>
+            <targetReference>Verify_Final_Usages</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Missing_at_Least_1_Value</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>flag_FinalUsageWithMissingValue</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>alreadyOnList_Id</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Final_Usage_ID</targetReference>
+            </connector>
+            <label>Missing at Least 1 Value</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>GC 09/07/23: Check if the current item is missing Currency_Code__c. It will only add it once to the list, even if more than 1 are missing the same value.</description>
+        <name>Final_Usage_Missing_Currency_Code</name>
+        <label>Final Usage: Missing Currency Code?</label>
+        <locationX>402</locationX>
+        <locationY>950</locationY>
+        <defaultConnector>
+            <targetReference>Final_Usage_Missing_Fee_Type</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Currency_Code_Missing</name>
+            <conditionLogic>(1 OR 2) AND 3</conditionLogic>
+            <conditions>
+                <leftValueReference>Verify_Final_Usages.Currency_Code__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Verify_Final_Usages.Currency_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+            </conditions>
+            <conditions>
+                <leftValueReference>alreadyOnList_CurrencyCode</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Currency_Code</targetReference>
+            </connector>
+            <label>Currency Code Missing</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>GC 09/07/23: Check if the current item is missing Fee_Type__c. It will only add it once to the list, even if more than 1 are missing the same value.</description>
+        <name>Final_Usage_Missing_Fee_Type</name>
+        <label>Final Usage: Missing Fee Type?</label>
+        <locationX>402</locationX>
+        <locationY>1250</locationY>
+        <defaultConnector>
+            <targetReference>Final_Usage_Add_ID_to_List</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Fee_Type_Missing</name>
+            <conditionLogic>(1 OR 2) AND 3</conditionLogic>
+            <conditions>
+                <leftValueReference>Verify_Final_Usages.Fee_Type__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Verify_Final_Usages.Fee_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+            </conditions>
+            <conditions>
+                <leftValueReference>alreadyOnList_FeeType</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Fee_Type</targetReference>
+            </connector>
+            <label>Fee Type Missing</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>GC 09/07/23: Check if the current item is missing Total_Revenue__c. It will only add it once to the list, even if more than 1 are missing the same value.</description>
+        <name>Final_Usage_Missing_Total_Revenue</name>
+        <label>Final Usage: Missing Total Revenue?</label>
+        <locationX>402</locationX>
+        <locationY>650</locationY>
+        <defaultConnector>
+            <targetReference>Final_Usage_Missing_Currency_Code</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Total_Revenue_Missing</name>
+            <conditionLogic>(1 OR 2) AND 3</conditionLogic>
+            <conditions>
+                <leftValueReference>Verify_Final_Usages.Total_Revenue__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Verify_Final_Usages.Total_Revenue__c</leftValueReference>
+                <operator>EqualTo</operator>
+            </conditions>
+            <conditions>
+                <leftValueReference>alreadyOnList_TotalRevenue</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Total_Revenue</targetReference>
+            </connector>
+            <label>Total Revenue Missing</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>GC 09/06/23: Check if there is at least 1 &quot;Final Usage&quot; on the input list.</description>
+        <name>Final_Usages_No_Line_Items</name>
+        <label>Final Usages: No Line Items?</label>
+        <locationX>182</locationX>
+        <locationY>242</locationY>
+        <defaultConnector>
+            <targetReference>Verify_Final_Usages</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>No_Final_Usages</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>count_FinalUsages</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_No_Final_Usages</targetReference>
+            </connector>
+            <label>No Final Usages</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>GC 09/06/23: Check if &quot;Bill_To__c&quot; is null on the invoice.</description>
+        <name>Invoice_Missing_Bill_To</name>
+        <label>Invoice: Missing Bill To?</label>
+        <locationX>182</locationX>
+        <locationY>1934</locationY>
+        <defaultConnector>
+            <targetReference>Invoice_Missing_Invoice_Date</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Bill_To_Missing</name>
+            <conditionLogic>(1 OR 2) and (3 OR 4)</conditionLogic>
+            <conditions>
+                <leftValueReference>input_BillingContact.Bill_To__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>input_BillingContact.Bill_To__c</leftValueReference>
+                <operator>EqualTo</operator>
+            </conditions>
+            <conditions>
+                <leftValueReference>input_InvoiceRecord.Bill_To_Auxiliar__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>input_InvoiceRecord.Bill_To_Auxiliar__c</leftValueReference>
+                <operator>EqualTo</operator>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Bill_To</targetReference>
+            </connector>
+            <label>Bill To Missing</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>GC 09/06/23: Check if &quot;Invoice_Amount__c&quot; is null on the invoice.</description>
+        <name>Invoice_Missing_Invoice_Amount</name>
+        <label>Invoice: Missing Invoice Amount?</label>
+        <locationX>182</locationX>
+        <locationY>2534</locationY>
+        <defaultConnector>
+            <targetReference>Invoice_Missing_Source_Boundary_System_Code</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Invoice_Amount_Missing</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>input_InvoiceRecord.Invoice_Amount__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>input_InvoiceRecord.Invoice_Amount__c</leftValueReference>
+                <operator>EqualTo</operator>
+            </conditions>
+            <connector>
+                <targetReference>Copy_1_of_Assign_Invoice_Date</targetReference>
+            </connector>
+            <label>Invoice Amount Missing</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>GC 09/06/23: Check if &quot;Invoice_Date__c&quot; is null on the invoice.</description>
+        <name>Invoice_Missing_Invoice_Date</name>
+        <label>Invoice: Missing Invoice Date?</label>
+        <locationX>182</locationX>
+        <locationY>2234</locationY>
+        <defaultConnector>
+            <targetReference>Invoice_Missing_Invoice_Amount</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Invoice_Date_Missing</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>input_InvoiceRecord.Invoice_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>input_InvoiceRecord.Invoice_Date__c</leftValueReference>
+                <operator>EqualTo</operator>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Invoice_Date</targetReference>
+            </connector>
+            <label>Invoice Date Missing</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>GC 09/06/23: Check if &quot;Source_Boundary_System_Code__c&quot; is null on the invoice, or is not &quot;Salesforce&quot;.</description>
+        <name>Invoice_Missing_Source_Boundary_System_Code</name>
+        <label>Invoice: Missing Source Boundary System Code?</label>
+        <locationX>182</locationX>
+        <locationY>2834</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Source_Boundary_System_Code_Missing</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>input_InvoiceRecord.Source_Boundary_System_Code__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>input_InvoiceRecord.Source_Boundary_System_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+            </conditions>
+            <conditions>
+                <leftValueReference>input_InvoiceRecord.Source_Boundary_System_Code__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>literal_Salesforce</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Source_Boundary_System_Code</targetReference>
+            </connector>
+            <label>Source Boundary System Code Missing?</label>
+        </rules>
+    </decisions>
+    <description>LR 12/19/23: Added a collection to return a list of the missing fields labels
+GC 09/05/23: Validates all fields before calling the integration.</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>GC 09/07/23: True if &quot;Currency_Code__c&quot; is already on the list.</description>
+        <name>alreadyOnList_CurrencyCode</name>
+        <dataType>Boolean</dataType>
+        <expression>IF(CONTAINS({!output_finalUsagesMissingFields}, {!literal_CurrencyCode}), true, false)</expression>
+    </formulas>
+    <formulas>
+        <description>GC 09/07/23: True if &quot;Fee_Type__c&quot; is already on the list.</description>
+        <name>alreadyOnList_FeeType</name>
+        <dataType>Boolean</dataType>
+        <expression>IF(CONTAINS({!output_finalUsagesMissingFields}, {!literal_FeeType}), true, false)</expression>
+    </formulas>
+    <formulas>
+        <description>GC 09/07/23: True if the ID is already on the list.</description>
+        <name>alreadyOnList_Id</name>
+        <dataType>Boolean</dataType>
+        <expression>IF(CONTAINS({!output_finalUsagesIds}, {!Verify_Final_Usages.Id}), true, false)</expression>
+    </formulas>
+    <formulas>
+        <description>GC 09/07/23: True if &quot;Total_Revenue__c&quot; is already on the list.</description>
+        <name>alreadyOnList_TotalRevenue</name>
+        <dataType>Boolean</dataType>
+        <expression>IF(CONTAINS({!output_finalUsagesMissingFields}, {!literal_TotalRevenue}), true, false)</expression>
+    </formulas>
+    <interviewLabel>OTCI0147 - Fields Validation {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>OTCI0147 - Fields Validation</label>
+    <loops>
+        <description>GC 09/07/23: Check received Final Usage records to see if any has field issues.</description>
+        <name>Verify_Final_Usages</name>
+        <label>Verify Final Usages</label>
+        <locationX>182</locationX>
+        <locationY>542</locationY>
+        <collectionReference>input_FinalUsagesRecords</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Final_Usage_Missing_Total_Revenue</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Invoice_Missing_Bill_To</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Count_Final_Usages</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>count_FinalUsages</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+    <variables>
+        <description>GC 09/04/23: Verify if the record has a missing value. If it does, equals true. If equals true, add the ID to the list.</description>
+        <name>flag_FinalUsageWithMissingValue</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
+        <description>GC 09/05/23: Receive the Billing Contact related to the invoice.</description>
+        <name>input_BillingContact</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Contact</objectType>
+    </variables>
+    <variables>
+        <description>GC 09/05/23: Receive the collection variable for the Final Usage records.</description>
+        <name>input_FinalUsagesRecords</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Final_Usage__c</objectType>
+    </variables>
+    <variables>
+        <description>GC 09/05/23: Input invoice record.</description>
+        <name>input_InvoiceRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Contracts_and_Invoices__c</objectType>
+    </variables>
+    <variables>
+        <description>GC 09/05/23: Input the project record.</description>
+        <name>input_Project</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Project__c</objectType>
+    </variables>
+    <variables>
+        <description>GC 09/05/23: To use only with ITC2.</description>
+        <name>input_SingleFinalUsageITC2</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Final_Usage__c</objectType>
+    </variables>
+    <variables>
+        <description>GC 09/07/23: Never use hard coded values. Ever.</description>
+        <name>literal_BillTo</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>Bill_To__c</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>GC 09/07/23: Never use hard coded values. Ever.</description>
+        <name>literal_CurrencyCode</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>Currency_Code__c</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>GC 09/07/23: Never use hard coded values. Ever.</description>
+        <name>literal_FeeType</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>Fee_Type__c</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>GC 09/07/23: Never use hard coded values. Ever.</description>
+        <name>literal_InvoiceDate</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>Invoice_Date__c</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>GC 09/07/23: Never use hard coded values. Ever.</description>
+        <name>literal_NoItems</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>No Items</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>GC 09/07/23: Never use hard coded values. Ever.</description>
+        <name>literal_Salesforce</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>Salesforce</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>GC 09/07/23: Never use hard coded values. Ever.</description>
+        <name>literal_SourceBoundarySystemCode</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>Source_Boundary_System_Code__c</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>GC 09/07/23: Never use hard coded values. Ever.</description>
+        <name>literal_TotalRevenue</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>Total_Revenue__c</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>GC 09/07/23: Contains the IDs of all the Final Usages with missing values.</description>
+        <name>output_finalUsagesIds</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <description>GC 09/05/23: Store the name of the fields the records are missing for Final Usages.</description>
+        <name>output_finalUsagesMissingFields</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <description>GC 09/05/23: Store the name of the fields the records are missing for Invoices.</description>
+        <name>output_invoiceMissingFields</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <description>LR 12/19/2023: Used in Multiple SAP invoices Flow</description>
+        <name>output_MissingFieldsCollectionLabels</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <description>GC 09/05/23: Reserved in case it&apos;s needed.</description>
+        <name>output_otherMissingInformation</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <description>GC 09/05/23: Store the name of the fields the records are missing for Projects.</description>
+        <name>output_projectMissingFields</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

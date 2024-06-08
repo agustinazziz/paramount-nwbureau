@@ -1,0 +1,214 @@
+<aura:component controller="EmployeeDayController" implements="force:appHostable,flexipage:availableForAllPageTypes">
+    <aura:attribute name="stories" type="List" default=""/>
+    <aura:attribute name="seaIdsToClone" type="List" default=""/>
+    <aura:attribute name="schedule" type="Object"/>
+    <aura:attribute name="costCenter" type="String"/>
+    <aura:attribute name="employeeId" type="String"/>
+    <aura:attribute name="employeeLocation" type="String"/>
+    <aura:attribute name="bureauId" type="String"/>
+    <aura:attribute name="dayDate" type="String"/>
+    <aura:attribute name="dayDateMin" type="String"/>
+    <aura:attribute name="dayDateMax" type="String"/>
+    <aura:attribute name="endDate" type="String"/>
+    <aura:attribute name="showCloneFooter" type="Boolean" default="true"/>
+    <aura:attribute name="cloneButtonVisibility" type="Boolean" default="false"/>
+    <aura:attribute name="cloningDisabled" type="Boolean" default="false"/>
+    <aura:attribute name="showNewEmployeeModal" type="Boolean" default="false"/>
+    <aura:attribute name="showDayCloneModal" type="Boolean" default="false"/>
+    <aura:attribute name="showDateCloneModal" type="Boolean" default="false"/>
+    <aura:attribute name="name" type="String"/>
+    <aura:handler name="init" value="{!this}" action="{!c.initializeComponent}" />
+    <aura:handler name="change" value="{!v.cloneButtonVisibility}" action="{!c.setCloneButtonVisibility}" />
+    <aura:attribute name="assignmentInformationOptions" type="List" default="[
+    {'label': 'DOMESTIC', 'value': 'DOMESTIC'},
+    {'label': 'IN TOWN', 'value': 'IN TOWN'},
+    {'label': 'FOREIGN', 'value': 'FOREIGN'},
+    {'label': 'TIME OFF', 'value': 'TIME OFF'},                                                                         
+    ]"/>
+    <aura:attribute name="booleanSet" type="List" default="[
+    {'label': 'Yes', 'value': 'Yes'},
+    {'label': 'No', 'value': 'No'}                                                                         
+    ]"/>
+    <aura:attribute name="prosumerUsed" type="List" default="[
+    {'label': 'No', 'value': 'No'},
+    {'label': 'Supporting Elements', 'value': 'Supporting Elements'},
+    {'label': 'Producer/Shooter with Technician', 'value': 'Producer/Shooter with Technician'},
+    {'label': 'Solo Producer/Shooter', 'value': 'Solo Producer/Shooter'}                                                                          
+    ]"/>
+    <aura:handler name="closeDayCloningModal" event="c:closeDayCloningModal" action="{!c.handleDayCloneModalClosing}"/>
+    <aura:registerEvent name="closeDayCloningModal" type="c:closeDayCloningModal"/>
+    
+    <!--AA 04/08/2024 Added the refactorized pill container component -->
+    <aura:registerEvent name="refreshViewEventWeek" type="c:refreshView"/>
+    <c:storiesContainer items="{!v.stories}" onrefreshview="{!c.handleRefreshView}" />
+
+    <!-- AA 04/08/2024 Commented because of LWC Pill Containter refactor  -->
+	<lightning:pillContainer name="pillContainerName" items="{!v.stories}" onitemremove="{!c.handleItemRemove}" class="slds-text-align_center"/>
+    <div class="slds-align_absolute-center">
+        <!-- <c:assignStoryBureau 
+            class="slds-m-horizontal_xx-small" 
+            dayDate="{!v.dayDate}" 
+            bureau="{!v.bureauId}" 
+            employeeId="{!v.employeeId}" 
+            scheduleId="{!v.schedule.Id}" 
+            onrefreshview="{!c.handleRefreshView}" >
+    </c:assignStoryBureau> -->
+
+        <!-- AA 04/08/2024 Commented because of LWC Assign Story refactor 1530 US -->
+        <!-- <lightning:button label="+" iconPosition="right"  variant="brand" onclick="{!c.openModal}"/> -->
+        <aura:if isTrue="{!v.cloneButtonVisibility}">
+            <lightning:button label=">" iconPosition="right" class="responsive-button" disabled="{!v.cloningDisabled}"  variant="brand" onclick="{!c.cloneToNextDay}"/>
+        </aura:if>
+        <aura:if isTrue="{!v.cloneButtonVisibility}">
+            <lightning:button label="S" iconPosition="right" class="responsive-button" disabled="{!v.cloningDisabled}" variant="brand" onclick="{!c.cloneToDate}"/>
+        </aura:if>
+    </div>
+    <!-- AA 04/08/2024 Commented because of LWC Assign Story refactor 1530 US -->
+
+    <!--MODAL-->
+    <!-- <aura:if isTrue="{!v.showNewEmployeeModal}">
+        <section role="dialog" tabindex="-1" aria-label="Meaningful description of the modal content" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+            <div class="slds-modal__container">
+                <div class="slds-modal__content slds-var-p-around_medium" id="modal-content-id-1">
+                    <h3 id="modal-heading-02"
+                        class="slds-modal__title slds-align_absolute-center slds-hyphenate slds-var-m-top_small">
+                        ASSIGN STORY
+                    </h3>
+                    <div class="slds-form newEmployeeForm">
+                        <lightning:recordEditForm aura:id="recordEditForm" objectApiName="Story_Schedule_Association__c">
+                            <div class="slds-form-element slds-form-element_stacked">    
+                                <lightning:card>
+                                    <lightning:inputField aura:id="storyId" name="storyId" 
+                                                          fieldName="Story__c" variant="label-stacked" onchange="{!c.handleChange}"/>
+                                </lightning:card>
+                                <lightning:card>
+                                    <lightning:inputField aura:id="locationId" name="locationId"
+                                                          fieldName="Location__c" variant="label-stacked" required="true"/>
+                                </lightning:card>
+                                <lightning:card>
+                                    <lightning:combobox aura:id="assignmentInformation" name="assignmentInformation" 
+                                                        label="Assignment Information"  value="null" placeholder="Select an assignment type" 
+                                                        options="{! v.assignmentInformationOptions }" required="true"/>
+                                </lightning:card>
+                                <lightning:card class="slds-hide">
+                                    <lightning:inputField aura:id="scheduleId" name="scheduleId"
+                                                          fieldName="Schedule__c" variant="label-stacked" 
+                                                          disabled="true" value="{!v.schedule.Id}" />
+                                </lightning:card>
+                                <lightning:card>
+                                    <div class="slds-grid slds-gutters">
+                                        <div class="slds-col">
+                                            <lightning:inputField aura:id="costCenterId" name="costCenterId"
+                                            fieldName="Cost_Center__c" variant="label-stacked" value="{!v.costCenter}"/>
+                                        </div>
+                                        <div class="slds-col">
+                                            <lightning:combobox 
+                                                aura:id="liveShot" name="liveShot" 
+                                                label="Live Shot"  value="No" 
+                                                placeholder="" 
+                                                options="{! v.booleanSet }" required="true"/>
+                                        </div>
+                                        <div class="slds-col">        
+                                            <lightning:combobox 
+                                                aura:id="breakingNews" name="breakingNews" 
+                                                label="Breaking News"  value="No" placeholder=""
+                                                options="{! v.booleanSet }" required="true"/>
+                                        </div>
+                                        <div class="slds-col">
+                                            <lightning:combobox 
+                                                aura:id="prosumerUsed" name="prosumerUsed" 
+                                                label="Prosumer Used"  value="No" placeholder="" 
+                                                options="{! v.prosumerUsed }" required="true"/>
+                                        </div>
+                                    </div>
+                                </lightning:card>
+                                <lightning:card>
+                                    <div class="slds-grid slds-gutters">
+                                        <div class="slds-col">
+                                            <lightning:input 
+                                                type="date" 
+                                                name="startDatePicker" 
+                                                label="Start Date" 
+                                                value="{!v.dayDate}"
+                                                
+                                                required="true"
+                                                onchange="{!c.handleDateChange}"
+                                            />
+                                        </div>
+                                        <div class="slds-col">
+                                            <lightning:input 
+                                                type="date" 
+                                                name="endDatePicker" 
+                                                label="End Date"
+                                                
+                                      			
+                                                onchange="{!c.handleEndDateChange}"
+                                            />
+                                        </div>
+                                    </div>
+                                </lightning:card>
+                            </div>
+                            <div class="slds-form-element slds-form-element_stacked">   
+                                <lightning:messages />
+                            </div>
+                        </lightning:recordEditForm>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning:button label="Cancel" variant="brand" onclick="{!c.closeModal}"></lightning:button>
+                        <lightning:button aura:id="createNewAssignmentButton" label="Assign Story" variant="brand" onclick="{! c.handleStoryAssignation }">
+                        </lightning:button>
+                    </footer>
+                </div>
+                
+            </div>
+        </section>
+        <div aura:id="modalBackdrop" class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if> -->
+    <!--MODAL-->
+    <!--MODAL-->
+    <aura:if isTrue="{!v.showDayCloneModal}">
+        <section role="dialog" tabindex="-1" aria-label="Meaningful description of the modal content" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+            <div class="slds-modal__container cloning-modal-container">
+                <div class="slds-modal__content slds-var-p-around_medium" id="modal-content-id-1">
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-align_absolute-center slds-hyphenate slds-var-m-top_small">DAY CLONING</h2>
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col">
+                            <c:dayClone 
+                                assignmentList="{!v.seaIdsToClone}" 
+                                targetEmployee="{!v.employeeId}" 
+                                bureauId="{!v.bureauId}" 
+                                oncloseDayCloningModal="{!c.handleDayCloneModalClosing}"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <aura:if isTrue="{!v.showCloneFooter}">
+                    <footer class="slds-modal__footer">
+                        <lightning:button label="Cancel" variant="brand" onclick="{!c.closeWeekClone}"></lightning:button>        
+                    </footer>
+                </aura:if>
+            </div>
+        </section>
+    <div aura:id="modalBackdrop" class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    <!--MODAL-->
+    <!--MODAL-->
+    <aura:if isTrue="{!v.showDateCloneModal}">
+        <section role="dialog" tabindex="-1" aria-label="Meaningful description of the modal content" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_small">
+            <div class="slds-modal__container">
+                <div class="slds-modal__content slds-var-p-around_medium" id="modal-content-id-1">
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-align_absolute-center slds-hyphenate slds-var-m-top_small">STORY CLONING</h2>
+                    <lightning:flow aura:id="Story_Clone" onstatuschange="{!c.handleFlowStoryStatusChange}" />
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button label="Cancel" variant="brand" onclick="{!c.closeWeekClone}"></lightning:button>
+                </footer>
+            </div>
+        </section>
+    <div aura:id="modalBackdrop" class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    <!--MODAL-->
+</aura:component>

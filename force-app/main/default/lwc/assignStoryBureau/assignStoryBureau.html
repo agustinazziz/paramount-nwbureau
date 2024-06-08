@@ -1,0 +1,27 @@
+<template>
+        <button  class="slds-col slds-button slds-button_brand responsive-button" title="Assign task" onclick={handleClick}>
+            +
+        </button>
+
+    <div class="custom-modal" lwc:if={flowView}>
+        <section role="dialog" class="slds-modal slds-modal_small slds-fade-in-open">
+            <div class="responsive-section slds-modal__container">
+                <header class="slds-modal__header">
+                    <span class="slds-modal__close">
+                        <lightning-icon icon-name="utility:close" variant="inverse" alternative-text="close" onclick={handleClick} title="Cancel" ></lightning-icon>
+                    </span>
+                    <h2 class="slds-text-heading_medium slds-hyphenate">Assign Story</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-flow
+                    flow-api-name='Assign_Story'
+                    onstatuschange={handleStatusChange}
+                    flow-input-variables={inputVariables}> 
+                    </lightning-flow>                
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+
+</template>

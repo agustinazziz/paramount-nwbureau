@@ -1,0 +1,137 @@
+.pillBlue{
+
+    --slds-c-pill-color-background: rgba(1, 118, 221,1) !important;
+    --lwc-brandTextLink:rgb(255, 255, 255) !important;
+    
+--slds-c-pill-action-color-border: rgba(1, 118, 221,1) !important;
+	
+    --slds-c-pill-sizing-border:0.1px!important;
+
+    
+}
+
+
+.pillBlue:hover{
+    --slds-c-pill-color-background: rgba(1, 118, 221,1) !important;
+    --lwc-brandTextLink:rgb(255, 255, 255) !important;
+    
+--slds-c-pill-action-color-border: rgba(1, 118, 221,1) !important;
+	
+    --slds-c-pill-sizing-border:0.1px!important;
+} 
+
+
+.pillBlue:focus{
+    --slds-c-pill-color-background: rgba(1, 118, 221,1) !important;
+    --lwc-brandTextLink:rgb(255, 255, 255) !important;
+    
+--slds-c-pill-action-color-border: rgba(1, 118, 221,1) !important;
+	
+    --slds-c-pill-sizing-border:0.1px!important;}
+ /*
+
+.pillBlue > a{
+    --slds-c-pill-color-background: rgba(1, 118, 221,1) !important;
+    --lwc-brandTextLink:rgb(255, 255, 255) !important;
+
+} 
+
+
+
+var(--slds-c-pill-color-border, var(--sds-c-pill-color-border, var(--slds-g-color-border-base-4, var(--lwc-colorBorder,rgb(229, 229, 229)))))
+.test:hover{
+    --slds-c-pill-color-background: rgba(1, 118, 221,1);
+    --sds-c-pill-color-background:  rgba(1, 118, 221,1);
+    --slds-c-pill-container-color-background: red;
+    --sds-c-pill-text-color:rgb(192, 195, 198);
+}
+.slds-pill__label{
+color: antiquewhite;
+} 
+
+
+.test{
+    background-color: rgba(1, 118, 221,1) !important;
+    color:rgb(255, 255, 255);
+}
+.slds-pill{
+    background-color: rgba(1, 118, 221,1) !important;
+    color:rgb(255, 255, 255) !important;
+}
+
+.slds-pill a{
+    color:rgb(255, 255, 255) !important;
+}
+
+.slds-pill_container{
+    background: rgba(255, 255, 255, 0) !important;
+    border-style: none;
+}
+
+.slds-pill__action {
+    width: 10vw;
+} 
+*/
+
+
+/* .slds-pill a{
+    color:rgb(255, 255, 255);
+}
+.slds-pill_container{
+    background: rgba(255, 255, 255, 0);
+    border-style: none;
+} */
+
+
+
+
+/*
+
+
+
+
+ .test > li{
+    --slds-c-pill-color-background: rgb(125, 105, 237);
+    --sds-c-pill-color-background:  rgb(125, 105, 237);
+    background: red;
+}
+.test:hover > li{
+    --slds-c-pill-color-background: rgb(125, 105, 237);
+    --sds-c-pill-color-background:  rgb(125, 105, 237);
+    background: red;
+}
+
+.test > a{
+    --slds-c-pill-color-background: rgb(125, 105, 237);
+    --sds-c-pill-color-background:  rgb(125, 105, 237);
+    background: red;
+}
+
+.test:hover > a{
+    --slds-c-pill-color-background: rgb(125, 105, 237);
+    --sds-c-pill-color-background:  rgb(125, 105, 237);
+    background: red;
+}
+
+
+
+.test:hover > span{
+    --slds-c-pill-color-background: rgb(125, 105, 237);
+    --sds-c-pill-color-background:  rgb(125, 105, 237);
+    background: red;
+}
+
+.test:hover *{
+    --slds-c-pill-color-background: rgb(125, 105, 237);
+    --sds-c-pill-color-background:  rgb(125, 105, 237);
+    background: red;
+} 
+
+
+.test{
+    padding: 5px;
+    background: rgba(255, 255, 255, 0);
+    --slds-c-pill-color-background: rgb(38, 0, 255);
+    --slds-c-pill-container-color-background: red;
+    
+}*/

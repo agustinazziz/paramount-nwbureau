@@ -1,0 +1,110 @@
+<template lwc:render-mode="light">
+
+    <template lwc:if={isLoading}>
+        <div class="loader-wrapper">
+            <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+        </div>
+    </template>
+
+    <div lwc:if={displayCartSummary} style={cartSummaryCustomCssStyles} class="cart-summary">
+        <c-cona-b2-b-cart-summary cart-totals={cartSummaryTotals} currency-code={currencyCode}
+            order-charge-value={orderChargeValue} show-order-charge={showOrderChargeLineItem}
+            is-checkout={isCheckoutPage}>
+            <div slot="headerText" class="stretch-width">
+                <c-cona-b2b-commerce-cart-summary-title
+                    cart-summary={cartSummary}></c-cona-b2b-commerce-cart-summary-title>
+            </div>
+            <div slot="shippingLabel" class="stretch-width">
+                <slot name="shippingLabel"></slot>
+            </div>
+            <div slot="subtotalLabel" class="stretch-width">
+                <slot name="subtotalLabel"></slot>
+            </div>
+            <div lwc:if={_showTaxIncludedLabel} slot="taxIncludedLabel">
+                <slot name="taxIncludedLabel"></slot>
+            </div>
+            <div slot="depositLabel" class="stretch-width">
+                <slot name="depositLabel"></slot>
+            </div>
+            <div slot="taxLabel" class="stretch-width">
+                <slot name="taxLabel"></slot>
+            </div>
+            <div slot="totalLabel" class="stretch-width">
+                <slot name="totalLabel"></slot>
+            </div>
+            <div slot="orderChargeLabel" class="stretch-width">
+                <span class="fontstyle">
+                    {minOrderChargeLabelCona.conaMinOrderLabel}
+                </span>
+            </div>
+        </c-cona-b2-b-cart-summary>
+
+        <div class="slds-grid slds-wrap summary-cta-container">
+            <div class="slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_1-of-1">
+                <div lwc:if={showPromoDiscountSection} class="promoDiscountContainer">
+                    <div class="promo-discount-section slds-align_absolute-center">
+                        <span class="promo-discount-message">
+                            <img src={promoDiscountIcon}
+                                class="customPromoIcon slds-m-right_xx-small slds-m-bottom_xxx-small" />
+                            <strong class="discount-formatted-price-container"><c-cona-b2-b-formatted-price
+                                    value={cartSummaryTotals.promoDiscount} currency-code={currencyCode}
+                                    display-currency-as="symbol">
+                                </c-cona-b2-b-formatted-price>
+                                &nbsp;{labels.promoSaved}
+                            </strong>
+                            &nbsp;{labels.promoDiscountMsg}
+                        </span>
+                    </div>
+                </div>
+                <div class="summaryMessageContainer">
+                    <slot name="summaryMessage"></slot>
+                </div>
+            </div>
+            <div class="slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_1-of-1 slds-col_bump-left">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-2 slds-large-size_1-of-1">
+                        <template lwc:if={showUpdateToCart}>
+                            <template lwc:if={enableUpdateCartButton}>
+                                <div class="checkout-button-container">
+                                    <button title={labels.cartButton} onclick={handleClick}
+                                        class="slds-button slds-button_outline-brand slds-align_absolute-center slds-button_brand slds-button_stretch update-cart-button">
+                                        {labels.cartButton}
+                                    </button>
+                                </div>
+                            </template>
+                            <template lwc:else>
+                                <div class="checkout-button-container">
+                                    <button title={labels.cartButton}
+                                        class="slds-button slds-button_brand slds-align_absolute-center slds-button_brand slds-button_stretch update-cart-button update-cart-disabled-button"
+                                        disabled>
+                                        {labels.cartButton}
+                                    </button>
+                                </div>
+                            </template>
+                        </template>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-2 slds-large-size_1-of-1">
+                        <template lwc:if={showProceedToCheckout}>
+                            <template lwc:if={disableButtonCheckout}>
+                                <div class="checkout-button-container">
+                                    <button disabled="" title={labels.checkoutButton}
+                                        class="slds-button slds-button_brand slds-align_absolute-center slds-button_brand slds-button_stretch checkout-button">
+                                        {labels.checkoutButton}
+                                    </button>
+                                </div>
+                            </template>
+                            <template lwc:else>
+                                <div class="checkout-button-container">
+                                    <button title={labels.checkoutButton} onclick={handleCheckoutButtonClick}
+                                        class="slds-button slds-button_brand slds-align_absolute-center slds-button_brand slds-button_stretch checkout-button active-checkout-button">
+                                        {labels.checkoutButton}
+                                    </button>
+                                </div>
+                            </template>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

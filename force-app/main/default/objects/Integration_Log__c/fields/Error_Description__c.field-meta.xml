@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Error_Description__c</fullName>
+    <description>GC 03/23/23: Enter the error description. For example: Update failed. First exception on row 0 with id...</description>
+    <externalId>false</externalId>
+    <label>Error Description</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

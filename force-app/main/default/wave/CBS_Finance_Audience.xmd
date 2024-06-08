@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WaveXmd xmlns="http://soap.sforce.com/2006/04/metadata">
+    <dataset>CBS_Finance_Audience</dataset>
+    <dimensions>
+        <field>reporting_name</field>
+        <isDerived>false</isDerived>
+        <label>Program Name</label>
+        <sortIndex>0</sortIndex>
+    </dimensions>
+</WaveXmd>

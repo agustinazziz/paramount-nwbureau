@@ -1,0 +1,10 @@
+.summary-title__label {
+    font-weight: bold;
+}
+
+.summary-title__totals,
+.summary-title__label {
+    line-height: 1.25rem;
+    letter-spacing: 0.01rem;
+    font-size: 1rem;
+}

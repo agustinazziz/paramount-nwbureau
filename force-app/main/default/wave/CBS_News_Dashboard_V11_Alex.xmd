@@ -1,0 +1,687 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WaveXmd xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <dataset xsi:nil="true"/>
+    <dimensions>
+        <conditionalFormatting>
+            <formattingBins>
+                <bin>*</bin>
+                <formatValue>linear-gradient(to bottom, #F71979, #CC203D)</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>0</sortIndex>
+            </formattingBins>
+            <formattingBins>
+                <bin>0</bin>
+                <formatValue>linear-gradient(to bottom, #95FFB0, #3AE867)</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>1</sortIndex>
+            </formattingBins>
+            <formattingBins>
+                <bin>2</bin>
+                <formatValue>linear-gradient(to bottom, #95FFFF, #4269E9)</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>2</sortIndex>
+            </formattingBins>
+            <property>chartColor</property>
+            <referenceField>rank</referenceField>
+            <sortIndex xsi:nil="true"/>
+            <type>multiple</type>
+        </conditionalFormatting>
+        <field>News_Program_3.ALL</field>
+        <isDerived>false</isDerived>
+        <sortIndex>0</sortIndex>
+    </dimensions>
+    <dimensions>
+        <conditionalFormatting>
+            <formattingPredicates>
+                <formatValue>#347FDB</formatValue>
+                <operator xsi:nil="true"/>
+                <sortIndex xsi:nil="true"/>
+                <value xsi:nil="true"/>
+            </formattingPredicates>
+            <property>chartColor</property>
+            <referenceField>A</referenceField>
+            <sortIndex xsi:nil="true"/>
+            <type>static</type>
+        </conditionalFormatting>
+        <field>year_quarter_reporti_1.ALL</field>
+        <isDerived>false</isDerived>
+        <sortIndex>1</sortIndex>
+    </dimensions>
+    <dimensions>
+        <conditionalFormatting>
+            <formattingBins>
+                <bin>*</bin>
+                <formatValue>linear-gradient(to bottom, #F71979, #CC203D)</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>0</sortIndex>
+            </formattingBins>
+            <formattingBins>
+                <bin>0</bin>
+                <formatValue>linear-gradient(to bottom, #95FFB0, #3AE867)</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>1</sortIndex>
+            </formattingBins>
+            <formattingBins>
+                <bin>1</bin>
+                <formatValue>linear-gradient(to bottom, #95FFFF, #4269E9)</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>2</sortIndex>
+            </formattingBins>
+            <property>chartColor</property>
+            <referenceField>rank</referenceField>
+            <sortIndex xsi:nil="true"/>
+            <type>multiple</type>
+        </conditionalFormatting>
+        <field>News_Program_1.ALL</field>
+        <isDerived>false</isDerived>
+        <sortIndex>2</sortIndex>
+    </dimensions>
+    <dimensions>
+        <conditionalFormatting>
+            <formattingPredicates>
+                <formatValue>#963CE9</formatValue>
+                <operator xsi:nil="true"/>
+                <sortIndex xsi:nil="true"/>
+                <value xsi:nil="true"/>
+            </formattingPredicates>
+            <property>chartColor</property>
+            <referenceField>Cost</referenceField>
+            <sortIndex xsi:nil="true"/>
+            <type>static</type>
+        </conditionalFormatting>
+        <field>reporting_name_2.ALL</field>
+        <isDerived>false</isDerived>
+        <sortIndex>3</sortIndex>
+    </dimensions>
+    <dimensions>
+        <conditionalFormatting>
+            <formattingPredicates>
+                <formatValue>#347FDB</formatValue>
+                <operator xsi:nil="true"/>
+                <sortIndex xsi:nil="true"/>
+                <value xsi:nil="true"/>
+            </formattingPredicates>
+            <property>chartColor</property>
+            <referenceField>Actuals</referenceField>
+            <sortIndex xsi:nil="true"/>
+            <type>static</type>
+        </conditionalFormatting>
+        <field>program_name_norm_1.ALL</field>
+        <isDerived>false</isDerived>
+        <sortIndex>4</sortIndex>
+    </dimensions>
+    <dimensions>
+        <conditionalFormatting>
+            <formattingPredicates>
+                <formatValue>#347FDB</formatValue>
+                <operator xsi:nil="true"/>
+                <sortIndex xsi:nil="true"/>
+                <value xsi:nil="true"/>
+            </formattingPredicates>
+            <property>chartColor</property>
+            <referenceField>Actuals</referenceField>
+            <sortIndex xsi:nil="true"/>
+            <type>static</type>
+        </conditionalFormatting>
+        <field>program_name_norm_1_1.ALL</field>
+        <isDerived>false</isDerived>
+        <sortIndex>5</sortIndex>
+    </dimensions>
+    <measures>
+        <field>Overtime_Staff_name__1.Sum of Cost</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>0</sortIndex>
+    </measures>
+    <measures>
+        <field>FT_Staff___2.C</field>
+        <formatCustomFormat>[&quot;#,###.##%&quot;,100]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>1</sortIndex>
+    </measures>
+    <measures>
+        <field>FT_Staff___2.B</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>2</sortIndex>
+    </measures>
+    <measures>
+        <field>FT_Staff___2.A</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>3</sortIndex>
+    </measures>
+    <measures>
+        <field>FT_Staff___1.C</field>
+        <formatCustomFormat>[&quot;#,###%&quot;,100]</formatCustomFormat>
+        <formatDecimalSeparator>.</formatDecimalSeparator>
+        <formatThousandsSeparator>,</formatThousandsSeparator>
+        <isDerived>false</isDerived>
+        <sortIndex>4</sortIndex>
+    </measures>
+    <measures>
+        <field>FT_Staff___1.B</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>5</sortIndex>
+    </measures>
+    <measures>
+        <field>FT_Staff___1.A</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>6</sortIndex>
+    </measures>
+    <measures>
+        <field>all_1.C</field>
+        <formatCustomFormat>[&quot;#,###.##%&quot;,100]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>7</sortIndex>
+    </measures>
+    <measures>
+        <field>all_1.B</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>8</sortIndex>
+    </measures>
+    <measures>
+        <field>all_1.A</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>9</sortIndex>
+    </measures>
+    <measures>
+        <field>amount_2.A</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>10</sortIndex>
+    </measures>
+    <measures>
+        <field>amount_2.B</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>11</sortIndex>
+    </measures>
+    <measures>
+        <field>amount_2.C</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>12</sortIndex>
+    </measures>
+    <measures>
+        <field>amount_2.D</field>
+        <formatCustomFormat>[&quot;#%&quot;,100]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>13</sortIndex>
+    </measures>
+    <measures>
+        <field>amount_2_2.D</field>
+        <formatCustomFormat>[&quot;#%&quot;,100]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>14</sortIndex>
+    </measures>
+    <measures>
+        <field>amount_2_2.A</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>15</sortIndex>
+    </measures>
+    <measures>
+        <field>amount_2_2.B</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>16</sortIndex>
+    </measures>
+    <measures>
+        <field>amount_2_2.C</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>17</sortIndex>
+    </measures>
+    <measures>
+        <field>amount_2_6.D</field>
+        <formatCustomFormat>[&quot;#%&quot;,100]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>18</sortIndex>
+    </measures>
+    <measures>
+        <field>amount_2_6.C</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>19</sortIndex>
+    </measures>
+    <measures>
+        <field>amount_2_6.B</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>20</sortIndex>
+    </measures>
+    <measures>
+        <field>amount_2_6.A</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>21</sortIndex>
+    </measures>
+    <measures>
+        <field>News_Program_3.OIBDA</field>
+        <isDerived>false</isDerived>
+        <sortIndex>22</sortIndex>
+    </measures>
+    <measures>
+        <conditionalFormatting>
+            <formattingPredicates>
+                <formatValue>#E6E830</formatValue>
+                <operator xsi:nil="true"/>
+                <sortIndex xsi:nil="true"/>
+                <value xsi:nil="true"/>
+            </formattingPredicates>
+            <property>chartColor</property>
+            <referenceField>Budget</referenceField>
+            <sortIndex xsi:nil="true"/>
+            <type>static</type>
+        </conditionalFormatting>
+        <field>program_name_norm_1_1.Budget</field>
+        <isDerived>false</isDerived>
+        <sortIndex>23</sortIndex>
+    </measures>
+    <measures>
+        <field>amount_1.A</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>24</sortIndex>
+    </measures>
+    <measures>
+        <field>amount_1.B</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>25</sortIndex>
+    </measures>
+    <measures>
+        <field>amount_1.C</field>
+        <formatCustomFormat>[&quot;#%&quot;,100]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>26</sortIndex>
+    </measures>
+    <measures>
+        <field>staffCount_2.sum_annual_salary</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>27</sortIndex>
+    </measures>
+    <measures>
+        <field>OBIDA_5.C</field>
+        <formatCustomFormat>[&quot;#%&quot;,100]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>28</sortIndex>
+    </measures>
+    <measures>
+        <field>OBIDA_1.OBIDA</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>29</sortIndex>
+    </measures>
+    <measures>
+        <field>OBIDA_2.OBIDA</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>30</sortIndex>
+    </measures>
+    <measures>
+        <field>OBIDA_2.A</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>31</sortIndex>
+    </measures>
+    <measures>
+        <field>OBIDA_2.B</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>32</sortIndex>
+    </measures>
+    <measures>
+        <field>OBIDA_3.B</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>33</sortIndex>
+    </measures>
+    <measures>
+        <field>OBIDA_3.A</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>34</sortIndex>
+    </measures>
+    <measures>
+        <field>OBIDA_3.OBIDA</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>35</sortIndex>
+    </measures>
+    <measures>
+        <field>OBIDA_4.B</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>36</sortIndex>
+    </measures>
+    <measures>
+        <field>OBIDA_4.A</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>37</sortIndex>
+    </measures>
+    <measures>
+        <field>OBIDA_4.OBIDA</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>38</sortIndex>
+    </measures>
+    <measures>
+        <field>OBIDA_4.D</field>
+        <formatCustomFormat>[&quot;#,###.#%&quot;,100]</formatCustomFormat>
+        <formatDecimalSeparator>.</formatDecimalSeparator>
+        <formatThousandsSeparator>,</formatThousandsSeparator>
+        <isDerived>false</isDerived>
+        <sortIndex>39</sortIndex>
+    </measures>
+    <measures>
+        <conditionalFormatting>
+            <formattingBins>
+                <bin>*</bin>
+                <formatValue>linear-gradient(to bottom, #F71979, #CC203D)</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>0</sortIndex>
+            </formattingBins>
+            <formattingBins>
+                <bin>0</bin>
+                <formatValue>linear-gradient(to bottom, #95FFB0, #3AE867)</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>1</sortIndex>
+            </formattingBins>
+            <formattingBins>
+                <bin>1</bin>
+                <formatValue>linear-gradient(to bottom, #95FFFF, #4269E9)</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>2</sortIndex>
+            </formattingBins>
+            <property>chartColor</property>
+            <referenceField>rank</referenceField>
+            <sortIndex xsi:nil="true"/>
+            <type>multiple</type>
+        </conditionalFormatting>
+        <field>News_Program_1.OIBDA</field>
+        <isDerived>false</isDerived>
+        <sortIndex>40</sortIndex>
+    </measures>
+    <measures>
+        <field>BroadcastTable_1.D</field>
+        <formatCustomFormat>[&quot;#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>41</sortIndex>
+    </measures>
+    <measures>
+        <field>BroadcastTable_1.C</field>
+        <formatCustomFormat>[&quot;#%&quot;,100]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>42</sortIndex>
+    </measures>
+    <measures>
+        <conditionalFormatting>
+            <formattingPredicates>
+                <formatValue>#963CE9</formatValue>
+                <operator xsi:nil="true"/>
+                <sortIndex xsi:nil="true"/>
+                <value xsi:nil="true"/>
+            </formattingPredicates>
+            <property>chartColor</property>
+            <referenceField>Cost</referenceField>
+            <sortIndex xsi:nil="true"/>
+            <type>static</type>
+        </conditionalFormatting>
+        <field>reporting_name_2.Cost</field>
+        <isDerived>false</isDerived>
+        <sortIndex>43</sortIndex>
+    </measures>
+    <measures>
+        <field>audiencetab_1.CPM Budget</field>
+        <formatCustomFormat>[&quot;#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>44</sortIndex>
+    </measures>
+    <measures>
+        <field>audiencetab_1.CPM Estimate</field>
+        <formatCustomFormat>[&quot;#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>45</sortIndex>
+    </measures>
+    <measures>
+        <field>audiencetab_1.Audience Budget</field>
+        <formatCustomFormat>[&quot;#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>46</sortIndex>
+    </measures>
+    <measures>
+        <field>audiencetab_1.Audience Estimate</field>
+        <formatCustomFormat>[&quot;#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>47</sortIndex>
+    </measures>
+    <measures>
+        <conditionalFormatting>
+            <formattingBins>
+                <bin>*</bin>
+                <formatValue>#E84340</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>0</sortIndex>
+            </formattingBins>
+            <formattingBins>
+                <bin>0</bin>
+                <formatValue>#3AE867</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>1</sortIndex>
+            </formattingBins>
+            <property>color</property>
+            <referenceField>Diff% Audience</referenceField>
+            <sortIndex xsi:nil="true"/>
+            <type>multiple</type>
+        </conditionalFormatting>
+        <field>audiencetab_1.Diff% Audience</field>
+        <formatCustomFormat>[&quot;#,###.##%&quot;,100]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>48</sortIndex>
+    </measures>
+    <measures>
+        <conditionalFormatting>
+            <formattingBins>
+                <bin>*</bin>
+                <formatValue>#E84340</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>0</sortIndex>
+            </formattingBins>
+            <formattingBins>
+                <bin>0</bin>
+                <formatValue>#3AE867</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>1</sortIndex>
+            </formattingBins>
+            <property>color</property>
+            <referenceField>Diff% CPM</referenceField>
+            <sortIndex xsi:nil="true"/>
+            <type>multiple</type>
+        </conditionalFormatting>
+        <field>audiencetab_1.Diff% CPM</field>
+        <formatCustomFormat>[&quot;#,###.##%&quot;,100]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>49</sortIndex>
+    </measures>
+    <measures>
+        <field>position_role_year_m_1.A</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>50</sortIndex>
+    </measures>
+    <measures>
+        <conditionalFormatting>
+            <formattingPredicates>
+                <formatValue>#347FDB</formatValue>
+                <operator xsi:nil="true"/>
+                <sortIndex xsi:nil="true"/>
+                <value xsi:nil="true"/>
+            </formattingPredicates>
+            <property>chartColor</property>
+            <referenceField>Actuals</referenceField>
+            <sortIndex xsi:nil="true"/>
+            <type>static</type>
+        </conditionalFormatting>
+        <field>program_name_norm_1.Actuals</field>
+        <isDerived>false</isDerived>
+        <sortIndex>51</sortIndex>
+    </measures>
+    <measures>
+        <field>amount_1_2.C</field>
+        <formatCustomFormat>[&quot;#%&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>52</sortIndex>
+    </measures>
+    <measures>
+        <field>amount_1_2.B</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>53</sortIndex>
+    </measures>
+    <measures>
+        <field>amount_1_2.A</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>54</sortIndex>
+    </measures>
+    <measures>
+        <conditionalFormatting>
+            <formattingPredicates>
+                <formatValue>#347FDB</formatValue>
+                <operator xsi:nil="true"/>
+                <sortIndex xsi:nil="true"/>
+                <value xsi:nil="true"/>
+            </formattingPredicates>
+            <property>chartColor</property>
+            <referenceField>Actuals</referenceField>
+            <sortIndex xsi:nil="true"/>
+            <type>static</type>
+        </conditionalFormatting>
+        <field>program_name_norm_1_1.Actuals</field>
+        <isDerived>false</isDerived>
+        <sortIndex>55</sortIndex>
+    </measures>
+    <measures>
+        <conditionalFormatting>
+            <formattingPredicates>
+                <formatValue>#963CE9</formatValue>
+                <operator xsi:nil="true"/>
+                <sortIndex xsi:nil="true"/>
+                <value xsi:nil="true"/>
+            </formattingPredicates>
+            <property>chartColor</property>
+            <referenceField>C</referenceField>
+            <sortIndex xsi:nil="true"/>
+            <type>static</type>
+        </conditionalFormatting>
+        <field>year_quarter_reporti_1.C</field>
+        <formatCustomFormat>[&quot;#%&quot;,100]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>56</sortIndex>
+    </measures>
+    <measures>
+        <conditionalFormatting>
+            <formattingPredicates>
+                <formatValue>#E6E830</formatValue>
+                <operator xsi:nil="true"/>
+                <sortIndex xsi:nil="true"/>
+                <value xsi:nil="true"/>
+            </formattingPredicates>
+            <property>chartColor</property>
+            <referenceField>B</referenceField>
+            <sortIndex xsi:nil="true"/>
+            <type>static</type>
+        </conditionalFormatting>
+        <field>year_quarter_reporti_1.B</field>
+        <formatCustomFormat>[&quot;#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>57</sortIndex>
+    </measures>
+    <measures>
+        <conditionalFormatting>
+            <formattingPredicates>
+                <formatValue>#347FDB</formatValue>
+                <operator xsi:nil="true"/>
+                <sortIndex xsi:nil="true"/>
+                <value xsi:nil="true"/>
+            </formattingPredicates>
+            <property>chartColor</property>
+            <referenceField>A</referenceField>
+            <sortIndex xsi:nil="true"/>
+            <type>static</type>
+        </conditionalFormatting>
+        <field>year_quarter_reporti_1.A</field>
+        <formatCustomFormat>[&quot;#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>58</sortIndex>
+    </measures>
+    <measures>
+        <field>year_month_1.D</field>
+        <formatCustomFormat>[&quot;#%&quot;,100]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>59</sortIndex>
+    </measures>
+    <measures>
+        <field>year_month_1.A</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>60</sortIndex>
+    </measures>
+    <measures>
+        <field>year_month_1.B</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>61</sortIndex>
+    </measures>
+    <measures>
+        <field>year_month_1.C</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>62</sortIndex>
+    </measures>
+    <measures>
+        <field>position_name_year_m_3.Sum of Cost</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>63</sortIndex>
+    </measures>
+    <measures>
+        <field>position_name_year_m_6.Sum of Cost</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>64</sortIndex>
+    </measures>
+    <measures>
+        <field>position_name_year_m_5.Sum of Cost</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>65</sortIndex>
+    </measures>
+    <measures>
+        <conditionalFormatting>
+            <formattingPredicates>
+                <formatValue>#FFFF93</formatValue>
+                <operator xsi:nil="true"/>
+                <sortIndex xsi:nil="true"/>
+                <value xsi:nil="true"/>
+            </formattingPredicates>
+            <property>chartColor</property>
+            <referenceField>Budget</referenceField>
+            <sortIndex xsi:nil="true"/>
+            <type>static</type>
+        </conditionalFormatting>
+        <field>program_name_norm_1.Budget</field>
+        <isDerived>false</isDerived>
+        <sortIndex>66</sortIndex>
+    </measures>
+    <type>Asset</type>
+    <waveVisualization>CBS_News_Dashboard_V11_Alex</waveVisualization>
+</WaveXmd>

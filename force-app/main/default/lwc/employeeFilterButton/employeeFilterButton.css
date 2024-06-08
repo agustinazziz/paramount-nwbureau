@@ -1,0 +1,33 @@
+.notSendEmployee {
+  display: none;
+}
+
+.checkBackground:hover {
+  background-color: #f3f3f3; 
+  /* dont erease this comment, is for the blue border when hover */
+  /* border: 2px solid #0B5CAB; */
+}     
+
+.scrollableDiv {
+  max-height: 25vh;
+}
+
+.scrollableDiv::-webkit-scrollbar {
+  width: 0.7rem;
+}
+
+.scrollableDiv::-webkit-scrollbar-thumb {
+  background-color: #0176d3;
+  border-radius: 5px;
+}
+
+.buttonConfirm {
+  --slds-c-button-spacing-inline-start: 0;
+  --slds-c-button-spacing-inline-end: 0;
+}
+
+.buttonOverflow {
+  white-space: nowrap;
+  overflow: hidden;
+  
+}

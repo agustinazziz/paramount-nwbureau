@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WaveXmd xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <dataset>CBS_Finance_Nielsen</dataset>
+    <dimensions>
+        <conditionalFormatting>
+            <formattingBins>
+                <bin>6-7 Morning News</bin>
+                <formatValue>#98B1FF</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>0</sortIndex>
+            </formattingBins>
+            <formattingBins>
+                <bin>CBS MORNINGS</bin>
+                <formatValue>#4269E9</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>1</sortIndex>
+            </formattingBins>
+            <formattingBins>
+                <bin>FACE THE NATION</bin>
+                <formatValue>#001668</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>2</sortIndex>
+            </formattingBins>
+            <formattingBins>
+                <bin>MF EVENING NEWS</bin>
+                <formatValue>#CD96FF</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>3</sortIndex>
+            </formattingBins>
+            <formattingBins>
+                <bin>SATURDAY EARLY</bin>
+                <formatValue>#963CE9</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>4</sortIndex>
+            </formattingBins>
+            <formattingBins>
+                <bin>SUNDAY MORNING</bin>
+                <formatValue>#6300B6</formatValue>
+                <label xsi:nil="true"/>
+                <sortIndex>5</sortIndex>
+            </formattingBins>
+            <property>chartColor</property>
+            <referenceField>program_name_norm</referenceField>
+            <sortIndex xsi:nil="true"/>
+            <type>categories</type>
+        </conditionalFormatting>
+        <field>program_name_norm</field>
+        <isDerived>false</isDerived>
+        <sortIndex>0</sortIndex>
+    </dimensions>
+</WaveXmd>

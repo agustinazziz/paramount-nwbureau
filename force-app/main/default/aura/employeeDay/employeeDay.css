@@ -1,0 +1,25 @@
+.THIS {
+    padding: 5px;
+    background: rgba(255, 255, 255, 0);
+}
+.THIS .slds-pill{
+    background-color: t(lightBlue);
+    color:rgb(255, 255, 255);
+}
+.THIS .slds-pill a{
+    color:rgb(255, 255, 255);
+}
+.THIS .slds-pill_container{
+    background: rgba(255, 255, 255, 0);
+    border-style: none;
+}
+
+.THIS .cloning-modal-container{
+    max-width: 650px !important;
+    width:650px !important;
+}
+
+/* AA 04/09/2024 Added new style to table */
+.THIS .slds-pill__action {
+    width: 10vw;
+}

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <assignments>
+        <name>Assign_Not_Delivered_Reason</name>
+        <label>Assign Not Delivered Reason</label>
+        <locationX>176</locationX>
+        <locationY>395</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Not_Delivered_Reason__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Project Canceled</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Assign_Project_Status</name>
+        <label>Assign Project Status</label>
+        <locationX>176</locationX>
+        <locationY>287</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Project_Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Delivery</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Assign_Not_Delivered_Reason</targetReference>
+        </connector>
+    </assignments>
+    <description>GC 07/05/23: 1175_WF Rule called &quot;Project canceled&quot; migrated to Flow.</description>
+    <environments>Default</environments>
+    <interviewLabel>Project canceled {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Project canceled</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Assign_Project_Status</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Approval_Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Canceled</stringValue>
+            </value>
+        </filters>
+        <object>Project__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

@@ -1,0 +1,31 @@
+/* .clone-container{
+    margin-top: 15px !important;
+} */
+
+.dont-move{
+    margin-left: 0;
+    position: absolute;
+}
+
+.slds-pill__action {
+    width: 10vw;
+}
+
+.slds-pill{
+    background-color: t(lightBlue);
+    color:rgb(255, 255, 255);
+}
+.slds-pill a{
+    color:rgb(255, 255, 255);
+}
+
+.slds-pill_container{
+    background: rgba(255, 255, 255, 0);
+    border-style: none;
+}
+
+@media (max-width: 1200px) {
+.responsive-button {
+        width: 1vw;
+    }
+}

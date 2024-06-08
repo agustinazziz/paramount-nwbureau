@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>GC 09/06/23: send the invoice to SAP</description>
+    <flowDefinition>OTCI0147_Manage_a_Single_SAP_Invoice</flowDefinition>
+    <label>Send to SAP</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>

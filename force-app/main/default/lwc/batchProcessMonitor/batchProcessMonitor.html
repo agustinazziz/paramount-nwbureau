@@ -1,0 +1,12 @@
+<template>
+    <template if:true={showProgressBar}>
+        <div class="slds-grid slds-grid_vertical-align-center slds-box slds-box_xx-small main">
+            <div class="slds-col progress">
+                <lightning-progress-bar value={progress} title={progressLabel} variant="circular" size="large"></lightning-progress-bar>
+            </div>
+            <div class="slds-col">
+                <lightning-helptext icon-name="utility:quick_text" content="Cloning job in progress."></lightning-helptext>
+            </div>
+        </div>
+    </template>
+</template>

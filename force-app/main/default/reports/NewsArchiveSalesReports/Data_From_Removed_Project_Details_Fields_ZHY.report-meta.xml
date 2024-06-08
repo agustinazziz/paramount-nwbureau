@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Account$Name</field>
+    </columns>
+    <columns>
+        <field>Account.Projects__r$Name</field>
+    </columns>
+    <columns>
+        <field>Account.Projects__r$Distribution_Platform__c</field>
+    </columns>
+    <columns>
+        <field>Account.Projects__r$Territory__c</field>
+    </columns>
+    <columns>
+        <field>Account.Projects__r$Term__c</field>
+    </columns>
+    <columns>
+        <field>Account.Projects__r$Other_Distribution_Platform__c</field>
+    </columns>
+    <columns>
+        <field>Account.Projects__r$Other_Project_Type__c</field>
+    </columns>
+    <columns>
+        <field>Account.Projects__r$Other_Term_Details__c</field>
+    </columns>
+    <columns>
+        <field>Account.Projects__r$Other_Territory_Details__c</field>
+    </columns>
+    <columns>
+        <field>Account.Projects__r$Other_Usage_Type__c</field>
+    </columns>
+    <description>Project Details Section Data that are removed due to creation of Rights Package</description>
+    <format>Tabular</format>
+    <name>Data From Removed Project Details Fields</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Accounts_with_Projects_with_Rights_Packages__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Account$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,23 @@
+<template>  
+    <div class="slds-p-vertical_small" style="height: 100%;">   
+        <c-stories-container items={stories} onrefreshviewremove={handleRefreshView}
+            class="story-container"></c-stories-container>
+        <div class="slds-p-top_small slds-align_absolute-center"> 
+            <div>
+                <c-assign-story-bureau day-date={dayDate} bureau={bureauId} employee-id={employeeId}
+                    schedule-id={scheduleId} cost-center={costCenter} assignment-info={assignmentInformation}
+                    location-id={locationId} onrefreshview={handleRefreshView}
+                    class="slds-var-m-horizontal_xx-small"></c-assign-story-bureau>
+            </div>
+            <div if:true={cloneButtonVisibility}>
+                <c-day-cloning-button assignment-list={storyEmployeeAssociations} target-employee={employeeId}
+                    bureau-id={bureauId} disabled-condition={cloningDisabled}
+                    onrefreshviewdayclone={handleRefreshView}></c-day-cloning-button>
+            </div>
+            <div if:true={cloneButtonVisibility}>
+                <c-story-cloning-button stories={stories} story-employee-associations={storyEmployeeAssociations}
+                    disabled-condition={cloningDisabled} onrefreshview={handleRefreshView}></c-story-cloning-button>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,33 @@
+<template>
+
+    <lightning-card>
+        <div class="slds-scrollable" style="height:30rem;width:60rem">
+        <lightning-datatable   
+        key-field="uniqueId"
+        columns={columns}
+        data={list}
+        selected-rows={preSelectedRows} 
+        onrowselection={handleChange}
+        ></lightning-datatable>
+    </div>
+    </lightning-card>
+    
+
+
+    <footer 
+    class ='slds-card__footer actionButtonBar slds-grid slds-grid_align-spread slds-var-p-horizontal_small'
+    >
+        <div class='actionsLeft slds-grid slds-var-m-right_xx-small'></div>
+        <div class ='actionsRight slds-grid'>
+            <lightning-button label="Previous" onclick={handleBack}> </lightning-button>
+            <lightning-button
+                variant='brand'
+                label='Next'
+                title='Next'
+                onclick='{handleGoNext}'
+                
+            ></lightning-button>
+
+        </div>
+    </footer>
+</template>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WaveApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <folder>Ad_Sales_CBS_Finance</folder>
+    <masterLabel>Ad Sales - CBS Finance/News (Melinda)</masterLabel>
+    <shares>
+        <accessLevel>Manage</accessLevel>
+        <sharedTo>agustin.azziz@paramount.com.bwdev</sharedTo>
+        <sharedToType>User</sharedToType>
+    </shares>
+
+</WaveApplication>

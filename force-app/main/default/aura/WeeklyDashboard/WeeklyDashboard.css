@@ -1,0 +1,59 @@
+.THIS .navigation {
+    background: rgb(255, 255, 255);
+}
+.THIS .grid-headers {
+    background: rgb(255, 255, 255);
+}
+.THIS .grid-footer {
+    background: rgb(255, 255, 255);
+}
+
+.THIS .employee-tag {
+    background: t(darkBlue);
+    color:rgb(255, 255, 255);
+    padding: 10px;
+}
+.THIS .head-tag {
+    background: t(darkBlue);
+    color:rgb(255, 255, 255);
+}
+.THIS .cEmployeeWeek .head-tag{
+    background: none;
+}
+.THIS .new-employee-cell {
+    padding: 5px; 
+}
+.THIS .newEmployeeForm {
+    margin-top: 45px;
+    min-height: 220px;
+}
+.THIS.assignment-container ul, .THIS.assignment-container ul li {
+    display: block;
+}
+.THIS .buttons {
+    display: block;
+    text-align: center;
+    padding: 0 5px 5px;
+}
+.THIS .buttons .slds-button_brand {
+    padding: 0 12px;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.THIS .button-overflow{
+    white-space: nowrap;
+    overflow: hidden;
+ 
+}
+
+.THIS {
+    --_slds-g-shadow-inset-focus: rgba(0, 0, 0, 0);
+    --_slds-g-shadow-outline-focus: rgba(0, 0, 0, 0);
+}
+
+@media (max-width: 1200px) {
+    .THIS .responsive-day {
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,92 @@
+<template lwc:render-mode="light">
+    <div if:true={cartTotals}>
+        <div class={summaryClass}>
+            <header class="slds-p-vertical_small slds-p-horizontal_small border-bottom">
+                <slot name="headerText"></slot>
+                    <div class="slds-hide_medium">
+                        <template lwc:if={showContent}>
+                            <lightning-button-icon onclick={toggleContentHide} variant="bare" icon-name="utility:chevrondown" class="summary-open-close-icon" size="medium">
+                            </lightning-button-icon>
+                        </template>
+                        <template lwc:else>
+                            <lightning-button-icon variant="bare" icon-name="utility:chevronup" onclick={toggleContentShow} class="summary-open-close-icon" size="medium">
+                            </lightning-button-icon>
+                        </template>
+                    </div>
+            </header>
+        </div>
+        <div lwc:if={showContent}>
+            <!-- Subtotal Price Info -->
+            <div
+                class="item subtotal-price slds-p-vertical_x-small slds-p-horizontal_medium slds-m-top--medium"
+                aria-live="assertive"
+                aria-atomic="true"
+                data-subtotal
+            >
+                <slot name="subtotalLabel"></slot>
+                <c-cona-b2-b-formatted-price value={cartTotals.subtotal} currency-code={currencyCode} display-currency-as="symbol"></c-cona-b2-b-formatted-price>
+            </div>
+
+            <!-- Shipping Price Info -->
+            <div class="item shipping-price slds-p-vertical_x-small slds-p-horizontal_medium" aria-live="assertive" aria-atomic="true" data-shipping>
+                <slot name="shippingLabel"></slot>
+                <c-cona-b2-b-formatted-price
+                    value={cartTotals.shippingPrice}
+                    currency-code={currencyCode}
+                    display-currency-as="symbol"
+                ></c-cona-b2-b-formatted-price>
+            </div>
+
+            <!-- Order Charge Amount -->
+            <div
+                class="item order-charge-amount slds-p-vertical_x-small slds-p-horizontal_medium"
+                aria-live="polite"
+                aria-atomic="true"
+                data-order-charge
+                lwc:if={showOrderCharge}
+            >
+                <slot name="orderChargeLabel"></slot>
+                <c-cona-b2-b-formatted-price value={orderChargeValue} currency-code={currencyCode} display-currency-as="symbol"></c-cona-b2-b-formatted-price>
+            </div>
+
+            <!-- Deposit Amount -->
+            <div
+                lwc:if={showTaxAndDeposit}
+                class="item deposit-amount slds-p-vertical_x-small slds-p-horizontal_medium"
+                aria-live="polite"
+                aria-atomic="true"
+                data-deposit
+            >
+                <slot name="depositLabel"></slot>
+                <c-cona-b2-b-formatted-price
+                    value={cartTotals.depositAmount}
+                    currency-code={currencyCode}
+                    display-currency-as="symbol"
+                ></c-cona-b2-b-formatted-price>
+            </div>
+
+            <!-- Tax Price Info -->
+            <div
+                lwc:if={showTaxAndDeposit}
+                class="item tax-price slds-p-vertical_x-small slds-p-horizontal_medium"
+                aria-live="assertive"
+                aria-atomic="true"
+                data-tax
+            >
+                <slot name="taxLabel"></slot>
+                <c-cona-b2-b-formatted-price value={cartTotals.tax} currency-code={currencyCode} display-currency-as="symbol"></c-cona-b2-b-formatted-price>
+            </div>
+        </div>
+
+        <!-- Total Price Info -->
+        <div class="item total-price slds-p-vertical_x-small slds-p-horizontal_medium" aria-live="assertive" aria-atomic="true">
+            <slot name="totalLabel"></slot>
+            <c-cona-b2-b-formatted-price value={cartTotals.total} currency-code={currencyCode} display-currency-as="symbol"></c-cona-b2-b-formatted-price>
+        </div>
+
+        <!-- Tax Included Display -->
+        <div class="tax-included-label">
+            <slot name="taxIncludedLabel"></slot>
+        </div>
+    </div>
+</template>

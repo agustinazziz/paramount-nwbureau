@@ -1,0 +1,115 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 04-09-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<aura:component controller="EmployeeWeekController" implements="force:appHostable,flexipage:availableForAllPageTypes">
+    <aura:attribute access="global" name="employeeId" type="String"></aura:attribute>
+    <aura:attribute access="global" name="employeeName" type="String"></aura:attribute>
+    <aura:attribute access="global" name="employeeTitle" type="String"></aura:attribute>
+    <aura:attribute access="global" name="employeeLocation" type="String"></aura:attribute>
+    <aura:attribute access="public" name="sunday" type="List"></aura:attribute>
+    <aura:attribute access="public" name="monday" type="List"></aura:attribute>
+    <aura:attribute access="public" name="tuesday" type="List"></aura:attribute>
+    <aura:attribute access="public" name="wednesday" type="List"></aura:attribute>
+    <aura:attribute access="public" name="thursday" type="List"></aura:attribute>
+    <aura:attribute access="public" name="friday" type="List"></aura:attribute>
+    <aura:attribute access="public" name="saturday" type="List"></aura:attribute>
+    <aura:attribute access="public" name="weekDates" type="Object"></aura:attribute>
+    <aura:attribute access="public" name="weekCalendarDates" type="Object"></aura:attribute>
+    <aura:attribute access="public" name="bureau" type="String"></aura:attribute>
+    <aura:attribute access="public" name="name" type="String"></aura:attribute>
+    <aura:attribute access="public" name="cloningDisabled" type="Boolean" default="false"></aura:attribute>
+    <!--FA:added register event & handler-->
+   <!-- AA 04/08/2024 Added event to refresh view -->
+    <aura:registerEvent name="refreshViewEvent" type="c:refreshView"/>
+    <aura:handler name="refreshViewEventWeek" event="c:refreshView" action="{!c.handleEvent}"/>
+
+        <div class="slds-grid main-grid">
+        <div class="slds-col slds-size_1-of-8 employee-column">
+            <lightning:card class="employee-card slds-align_absolute-center slds-p-vertical_small">
+                <div class="responsive-name slds-align_absolute-center"><a class="head-tag" href="{!'/' + v.employeeId}">{!v.employeeName}</a></div>
+                <div class="responsive-title slds-align_absolute-center">({!v.employeeTitle})</div>
+                <div class="slds-align_absolute-center slds-p-top_small">
+                    <lightning:button aura:id="removeButton" variant="destructive" label="X"
+                                      class="responsive-cross-button slds-text-heading_small slds-p-horizontal_x-small slds-p-vertical_xx-small"
+                                      title="Employee will be removed from the view"
+                                      onclick="{!c.handleRemoval}"/>
+                </div>
+            </lightning:card>
+        </div>
+        <div class="slds-col slds-size_1-of-8 day-column">
+         <c:employeeDayLWC aura:id="sunday" stories="{!v.sunday}" schedule="{!v.weekDates.sunday}"
+                           employeeId="{!v.employeeId}" bureauId="{!v.bureau}" employeeLocation="{!v.employeeLocation}"
+                           dayDate ="{!v.weekCalendarDates.SUNDAY}" cloningDisabled="{!v.cloningDisabled}" onrefreshvieweventweek="{!c.handleEvent}" />
+              </div>
+        <div class="slds-col slds-size_1-of-8 day-column">
+         <c:employeeDayLWC aura:id="monday" stories="{!v.monday}" schedule="{!v.weekDates.monday}"
+                           employeeId="{!v.employeeId}" bureauId="{!v.bureau}" employeeLocation="{!v.employeeLocation}"
+                           dayDate ="{!v.weekCalendarDates.MONDAY}" cloningDisabled="{!v.cloningDisabled}" onrefreshvieweventweek="{!c.handleEvent}"/>
+              </div>
+                    <div class="slds-col slds-size_1-of-8 day-column">
+         <c:employeeDayLWC aura:id="tuesday" stories="{!v.tuesday}" schedule="{!v.weekDates.tuesday}"
+                           employeeId="{!v.employeeId}" bureauId="{!v.bureau}" employeeLocation="{!v.employeeLocation}"
+                           dayDate ="{!v.weekCalendarDates.TUESDAY}" cloningDisabled="{!v.cloningDisabled}" onrefreshvieweventweek="{!c.handleEvent}"/>
+              </div>
+                    <div class="slds-col slds-size_1-of-8 day-column">
+         <c:employeeDayLWC aura:id="wednesday" stories="{!v.wednesday}" schedule="{!v.weekDates.wednesday}"
+                           employeeId="{!v.employeeId}" bureauId="{!v.bureau}" employeeLocation="{!v.employeeLocation}"
+                           dayDate ="{!v.weekCalendarDates.WEDNESDAY}" cloningDisabled="{!v.cloningDisabled}" onrefreshvieweventweek="{!c.handleEvent}"/>
+              </div>
+                    <div class="slds-col slds-size_1-of-8 day-column">
+         <c:employeeDayLWC aura:id="thursday" stories="{!v.thursday}" schedule="{!v.weekDates.thursday}"
+                           employeeId="{!v.employeeId}" bureauId="{!v.bureau}" employeeLocation="{!v.employeeLocation}"
+                           dayDate ="{!v.weekCalendarDates.THURSDAY}" cloningDisabled="{!v.cloningDisabled}" onrefreshvieweventweek="{!c.handleEvent}"/>
+              </div>
+                    <div class="slds-col slds-size_1-of-8 day-column">
+         <c:employeeDayLWC aura:id="friday" stories="{!v.friday}" schedule="{!v.weekDates.friday}"
+                           employeeId="{!v.employeeId}" bureauId="{!v.bureau}" employeeLocation="{!v.employeeLocation}"
+                           dayDate ="{!v.weekCalendarDates.FRIDAY}" cloningDisabled="{!v.cloningDisabled}" onrefreshvieweventweek="{!c.handleEvent}"/>
+              </div>
+                    <div class="slds-col slds-size_1-of-8 day-column">
+         <c:employeeDayLWC aura:id="saturday" stories="{!v.saturday}" schedule="{!v.weekDates.saturday}"
+                           employeeId="{!v.employeeId}" bureauId="{!v.bureau}" employeeLocation="{!v.employeeLocation}"
+                           dayDate ="{!v.weekCalendarDates.SATURDAY}" cloningDisabled="{!v.cloningDisabled}" onrefreshvieweventweek="{!c.handleEvent}"/>
+              </div>
+    
+             <!--   <c:employeeDay aura:id="sunday" stories="{!v.sunday}" schedule="{!v.weekDates.sunday}"
+                           employeeId="{!v.employeeId}" bureauId="{!v.bureau}" employeeLocation="{!v.employeeLocation}"
+                           dayDate ="{!v.weekCalendarDates.SUNDAY}" cloningDisabled="{!v.cloningDisabled}"/>
+            
+        </div>
+        <div class="slds-col slds-size_1-of-8 day-column">
+            <c:employeeDay aura:id="monday" stories="{!v.monday}" schedule="{!v.weekDates.monday}"
+                           employeeId="{!v.employeeId}" bureauId="{!v.bureau}"  employeeLocation="{!v.employeeLocation}"
+                           dayDate ="{!v.weekCalendarDates.MONDAY}" cloningDisabled="{!v.cloningDisabled}"/>
+        </div>
+        <div class="slds-col slds-size_1-of-8 day-column">
+            <c:employeeDay aura:id="tuesday" stories="{!v.tuesday}" schedule="{!v.weekDates.tuesday}"
+                           employeeId="{!v.employeeId}" bureauId="{!v.bureau}"  employeeLocation="{!v.employeeLocation}"
+                           dayDate ="{!v.weekCalendarDates.TUESDAY}" cloningDisabled="{!v.cloningDisabled}"/>
+        </div>
+        <div class="slds-col slds-size_1-of-8 day-column">
+            <c:employeeDay aura:id="wednesday" stories="{!v.wednesday}" schedule="{!v.weekDates.wednesday}"
+                           employeeId="{!v.employeeId}" bureauId="{!v.bureau}"  employeeLocation="{!v.employeeLocation}"
+                           dayDate ="{!v.weekCalendarDates.WEDNESDAY}" cloningDisabled="{!v.cloningDisabled}"/>
+        </div>
+        <div class="slds-col slds-size_1-of-8 day-column">
+            <c:employeeDay aura:id="thursday" stories="{!v.thursday}" schedule="{!v.weekDates.thursday}"
+                           employeeId="{!v.employeeId}" bureauId="{!v.bureau}"  employeeLocation="{!v.employeeLocation}"
+                           dayDate ="{!v.weekCalendarDates.THURSDAY}" cloningDisabled="{!v.cloningDisabled}"/>
+        </div>
+        <div class="slds-col slds-size_1-of-8 day-column">
+            <c:employeeDay aura:id="friday" stories="{!v.friday}" schedule="{!v.weekDates.friday}"
+                           employeeId="{!v.employeeId}" bureauId="{!v.bureau}"  employeeLocation="{!v.employeeLocation}"
+                           dayDate ="{!v.weekCalendarDates.FRIDAY}" cloningDisabled="{!v.cloningDisabled}"/>
+        </div>
+        <div class="slds-col slds-size_1-of-8 day-column">
+            <c:employeeDay aura:id="saturday" stories="{!v.saturday}" schedule="{!v.weekDates.saturday}"
+                           employeeId="{!v.employeeId}" bureauId="{!v.bureau}"  employeeLocation="{!v.employeeLocation}"
+                           dayDate ="{!v.weekCalendarDates.SATURDAY}" cloningDisabled="{!v.cloningDisabled}"/>-->
+      
+    </div>
+</aura:component>

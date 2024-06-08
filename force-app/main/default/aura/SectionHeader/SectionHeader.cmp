@@ -1,0 +1,8 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes">
+    <aura:attribute name="label" type="String" description="Label to be displayed on the section header"/>
+    <div class=" slds-grid slds-gutters">
+        <div class="slds-col">
+            <h1>{!v.label}</h1>
+        </div>
+    </div>
+</aura:component>

@@ -1,0 +1,1212 @@
+{
+  "version" : "59.0",
+  "nodes" : {
+    "LOAD_DATASET0" : {
+      "action" : "load",
+      "sources" : [ ],
+      "parameters" : {
+        "fields" : [ "div", "acct_gl", "acct_description", "dept_gl", "dept_description", "show_gl", "show_description", "revenue_or_cost_tier_1", "revenue_or_cost_tier_2", "revenue_or_cost_tier_3", "revenue_or_cost_tier_4", "reporting_name", "reporting_group_name", "reporting_category", "franchise_rollup", "season", "episode", "data_type", "amount", "year", "quarter", "month", "year_month", "salesforce_month_date", "year_quarter", "table_source", "system_source", "forecast_f_number", "dw_create_dt_UT" ],
+        "dataset" : {
+          "type" : "connectedDataset",
+          "label" : "pt_oracle_tm1_finance_revbyshow_final_vw",
+          "connectionName" : "Salesforce_Developer_3",
+          "sourceObjectName" : "pt_oracle_tm1_finance_revbyshow_final_vw"
+        },
+        "sampleDetails" : {
+          "type" : "TopN",
+          "sortBy" : [ ]
+        }
+      }
+    },
+    "OUTPUT0" : {
+      "action" : "save",
+      "sources" : [ "BUCKET0" ],
+      "parameters" : {
+        "fields" : [ ],
+        "dataset" : {
+          "type" : "analyticsDataset",
+          "label" : "CBS Finance Revenue",
+          "name" : "RevByShows_TM1",
+          "folderName" : "Ad_Sales_CBS_Finance"
+        },
+        "measuresToCurrencies" : [ ]
+      }
+    },
+    "FORMULA3" : {
+      "action" : "formula",
+      "sources" : [ "LOAD_DATASET0" ],
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "TEXT",
+          "name" : "Month2",
+          "label" : "Month2",
+          "formulaExpression" : "case when \"month\" = 'Jan' then '(01)Jan'\r\nwhen \"month\" = 'Feb' then '(02)Feb'\r\nwhen \"month\" = 'Mar' then '(03)Mar'\r\nwhen \"month\" = 'Apr' then '(04)Apr'\r\nwhen \"month\" = 'May' then '(05)May'\r\nwhen \"month\" = 'Jun' then '(06)Jun'\r\nwhen \"month\" = 'Jul' then '(07)JUl'\r\nwhen \"month\" = 'Aug' then '(08)Aug'\r\nwhen \"month\" = 'Sep' then '(09)Sep'\r\nwhen \"month\" = 'Oct' then '(10)Oct'\r\nwhen \"month\" = 'Nov' then '(11)Nov'\r\nwhen \"month\" = 'Dec' then '(12)Dec'\r\nelse 'NA' end",
+          "precision" : 15,
+          "defaultValue" : ""
+        } ]
+      }
+    },
+    "FORMULA12" : {
+      "action" : "formula",
+      "sources" : [ "FORMULA3" ],
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "TEXT",
+          "name" : "year_month_name",
+          "label" : "Year-Month",
+          "formulaExpression" : "concat(\"month\", '-', \"year\")",
+          "precision" : 20,
+          "defaultValue" : ""
+        } ]
+      }
+    },
+    "FORMULA14" : {
+      "action" : "formula",
+      "sources" : [ "FORMULA12" ],
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "TEXT",
+          "name" : "forecast_f_number_sort",
+          "label" : "forecast_f_number_sort",
+          "formulaExpression" : "case \r\nwhen forecast_f_number = '2022F6' then '22a 2022F6'\r\nwhen forecast_f_number = '2022F7' then '22b 2022F7'\r\nwhen forecast_f_number = '2022F8' then '22c 2022F8'\r\nwhen forecast_f_number = '2022F9' then '22d 2022F9'\r\nwhen forecast_f_number = '2022F10' then '22e 2022F10'\r\nwhen forecast_f_number = '2022F11' then '22f 2022F11'\r\nwhen forecast_f_number = '2022F12' then '22g 2022F12'\r\nwhen forecast_f_number = '2022FINAL' then '22h 2022F12'\r\nwhen forecast_f_number = '2023F1' then '23a 2023F1'\r\nwhen forecast_f_number = '2023F2' then '23b 2023F2'\r\nwhen forecast_f_number = '2023F3' then '23c 2023F3'\r\nwhen forecast_f_number = '2023F4' then '23d 2023F4'\r\nwhen forecast_f_number = '2023F5' then '23e 2023F5'\r\nelse 'Need to Fix'\r\n\r\nend",
+          "precision" : 255,
+          "defaultValue" : ""
+        } ]
+      }
+    },
+    "BUCKET0" : {
+      "action" : "bucket",
+      "sources" : [ "FORMULA17" ],
+      "parameters" : {
+        "fields" : [ {
+          "name" : "Program_Bucket",
+          "label" : "Program Bucket",
+          "type" : "TEXT",
+          "bucketsSetup" : {
+            "defaultBucketValue" : "Other",
+            "isPassthroughEnabled" : false,
+            "sourceField" : {
+              "name" : "reporting_group_name",
+              "type" : "TEXT"
+            },
+            "buckets" : [ {
+              "value" : "Primetime",
+              "sourceValues" : [ "48 Hours", "60 Minutes" ]
+            }, {
+              "value" : "Hard News",
+              "sourceValues" : [ "CBS Mornings", "CBSM Saturday", "Evening News", "Face the Nation", "Morning News", "Overnight News", "Sunday Morning", "Weekend News" ]
+            }, {
+              "value" : "Total Audio",
+              "sourceValues" : [ "Total Audio" ]
+            }, {
+              "value" : "Newsgathering",
+              "sourceValues" : [ "Newsgathering Domestic", "Newsgathering International" ]
+            }, {
+              "value" : "Political & Special Events",
+              "sourceValues" : [ "Political", "Race & Culture", "Special & Unscheduled Events" ]
+            } ]
+          }
+        } ]
+      }
+    },
+    "FORMULA17" : {
+      "action" : "formula",
+      "sources" : [ "FORMULA14" ],
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "NUMBER",
+          "name" : "Forecast_sort",
+          "label" : "Forecast_sort",
+          "formulaExpression" : "case \r\nwhen char_length(forecast_f_number) = 6 then round(concat(substr(forecast_f_number, 3, 2),0,substr(forecast_f_number, 6, 1)),0)\r\nwhen contains(forecast_f_number, 'FINAL') then round(concat(substr(forecast_f_number, 3, 2),13),0)\r\nelse\r\nround(concat(substr(forecast_f_number, 3, 2),substr(forecast_f_number, 6, 2)),0)\r\nend",
+          "precision" : 10,
+          "scale" : 0,
+          "defaultValue" : ""
+        } ]
+      }
+    },
+    "LOAD_DATASET1" : {
+      "action" : "load",
+      "sources" : [ ],
+      "parameters" : {
+        "fields" : [ "div", "acct_gl", "acct_description", "dept_gl", "dept_description", "show_gl", "show_description", "revenue_or_cost_tier_1", "revenue_or_cost_tier_2", "revenue_or_cost_tier_3", "revenue_or_cost_tier_4", "reporting_name", "reporting_category", "franchise_rollup", "season", "episode", "data_type", "amount", "year", "quarter", "month", "year_month", "salesforce_month_date", "year_quarter", "table_source", "system_source", "forecast_f_number", "dw_create_dt_UT" ],
+        "dataset" : {
+          "type" : "connectedDataset",
+          "label" : "pt_nielsen_news_data_final_vw",
+          "connectionName" : "Salesforce_Developer_3",
+          "sourceObjectName" : "pt_nielsen_news_data_final_vw"
+        },
+        "sampleDetails" : {
+          "type" : "TopN",
+          "sortBy" : [ ]
+        }
+      }
+    },
+    "OUTPUT1" : {
+      "action" : "save",
+      "sources" : [ "BUCKET1" ],
+      "parameters" : {
+        "fields" : [ ],
+        "dataset" : {
+          "type" : "analyticsDataset",
+          "label" : "CBS Finance - Audience",
+          "name" : "CBS_Finance_Audience",
+          "folderName" : "Ad_Sales_CBS_Finance"
+        },
+        "measuresToCurrencies" : [ ]
+      }
+    },
+    "FORMULA4" : {
+      "action" : "formula",
+      "sources" : [ "LOAD_DATASET1" ],
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "TEXT",
+          "name" : "Demo",
+          "label" : "Demo",
+          "formulaExpression" : "case when \"revenue_or_cost_tier_2\" = 'Audicence W2554' then 'Audience W2554' when \"revenue_or_cost_tier_2\" = 'Audicence A2554' then 'Audience A2554' else \"revenue_or_cost_tier_2\" end",
+          "precision" : 255,
+          "defaultValue" : ""
+        } ]
+      }
+    },
+    "FORMULA11" : {
+      "action" : "formula",
+      "sources" : [ "FORMULA4" ],
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "TEXT",
+          "name" : "year_month_name",
+          "label" : "Year-Month",
+          "formulaExpression" : "concat(\"month\", '-', \"year\")",
+          "precision" : 20,
+          "defaultValue" : ""
+        } ]
+      }
+    },
+    "BUCKET1" : {
+      "action" : "bucket",
+      "sources" : [ "FORMULA11" ],
+      "schema" : {
+        "fields" : [ {
+          "name" : "reporting_name_bucket",
+          "newProperties" : {
+            "name" : "reporting_name"
+          }
+        } ],
+        "slice" : {
+          "mode" : "DROP",
+          "ignoreMissingFields" : true,
+          "fields" : [ "reporting_name" ]
+        }
+      },
+      "parameters" : {
+        "fields" : [ {
+          "name" : "reporting_name_bucket",
+          "label" : "reporting_name",
+          "type" : "TEXT",
+          "bucketsSetup" : {
+            "isPassthroughEnabled" : true,
+            "sourceField" : {
+              "name" : "reporting_name",
+              "type" : "TEXT"
+            },
+            "buckets" : [ {
+              "value" : "CBS Mornings",
+              "sourceValues" : [ "CBS Mornings" ]
+            }, {
+              "value" : "Saturday Early",
+              "sourceValues" : [ "Saturday Early" ]
+            }, {
+              "value" : "Evening News",
+              "sourceValues" : [ "MF Evening News" ]
+            }, {
+              "value" : "6-7 Morning News",
+              "sourceValues" : [ "6-7 Morning News" ]
+            }, {
+              "value" : "Face the Nation",
+              "sourceValues" : [ "Face the Nation" ]
+            }, {
+              "value" : "Sunday Morning",
+              "sourceValues" : [ "Sunday Morning" ]
+            } ]
+          }
+        } ]
+      }
+    },
+    "LOAD_DATASET2" : {
+      "action" : "load",
+      "sources" : [ ],
+      "parameters" : {
+        "fields" : [ "position_name", "position_role", "acct_gl", "dept_gl", "show_gl", "div_gl", "revenue_or_cost_tier_1", "revenue_or_cost_tier_2", "revenue_or_cost_tier_3", "revenue_or_cost_tier_4", "revenue_or_cost_tier_5", "reporting_name", "reporting_group_name", "reporting_category", "franchise_rollup", "amount", "year", "quarter", "month", "year_month", "salesforce_month_date", "year_quarter", "forecast_f_number", "dw_create_dt_UT", "system_source" ],
+        "dataset" : {
+          "type" : "connectedDataset",
+          "label" : "pt_staff_overtime_final_vw",
+          "connectionName" : "Salesforce_Developer_3",
+          "sourceObjectName" : "pt_staff_overtime_final_vw"
+        },
+        "sampleDetails" : {
+          "type" : "TopN",
+          "sortBy" : [ ]
+        }
+      }
+    },
+    "OUTPUT2" : {
+      "action" : "save",
+      "sources" : [ "FORMULA18" ],
+      "parameters" : {
+        "fields" : [ ],
+        "dataset" : {
+          "type" : "analyticsDataset",
+          "label" : "CBS Finance - Overtime",
+          "name" : "CBS_Finance_Overtime",
+          "folderName" : "Ad_Sales_CBS_Finance"
+        },
+        "measuresToCurrencies" : [ ]
+      }
+    },
+    "FORMULA5" : {
+      "action" : "formula",
+      "sources" : [ "LOAD_DATASET2" ],
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "MULTIVALUE",
+          "name" : "Overtime_Toggle",
+          "label" : "Overtime_Toggle",
+          "formulaExpression" : "case when (\"revenue_or_cost_tier_1\" = 'OT Staff' or \"revenue_or_cost_tier_1\" = 'OT FL/Per Diem') and \"revenue_or_cost_tier_5\" = 'COST' and \"revenue_or_cost_tier_3\" = 'Meal Penalty' and (\"revenue_or_cost_tier_4\" = 'Meal Penalty 150 Pct' or \"revenue_or_cost_tier_4\" = 'Meal Penalty Pay') then array('Meal Penalty','Staff OT','Freelance')  when (\"revenue_or_cost_tier_1\" = 'OT Staff' or \"revenue_or_cost_tier_1\" = 'OT FL/Per Diem') and \"revenue_or_cost_tier_5\" = 'COST' and \"revenue_or_cost_tier_3\" = 'Work Day Off' then array('Work Day Off','Staff OT','Freelance') when \"revenue_or_cost_tier_1\" = 'OT Staff' and \"revenue_or_cost_tier_5\" = 'COST' then array('Staff OT') when \"revenue_or_cost_tier_1\" = 'OT FL/Per Diem' and \"revenue_or_cost_tier_5\" = 'COST' then array('Freelance') end"
+        } ]
+      }
+    },
+    "REPLACE0" : {
+      "action" : "formula",
+      "sources" : [ "FORMULA5" ],
+      "schema" : {
+        "fields" : [ {
+          "name" : "year_quarter_replace",
+          "newProperties" : {
+            "name" : "year_quarter"
+          }
+        } ],
+        "slice" : {
+          "mode" : "DROP",
+          "ignoreMissingFields" : true,
+          "fields" : [ "year_quarter" ]
+        }
+      },
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "TEXT",
+          "name" : "year_quarter_replace",
+          "label" : "year_quarter",
+          "formulaExpression" : "replace(year_quarter, '2022-Q3', '2022Q3')",
+          "precision" : 255
+        } ]
+      }
+    },
+    "SPLIT0" : {
+      "action" : "split",
+      "sources" : [ "REPLACE3" ],
+      "parameters" : {
+        "sourceField" : "position_role",
+        "delimiter" : ".",
+        "targetFields" : [ {
+          "name" : "position_role_split",
+          "label" : "position_role Split 1"
+        }, {
+          "name" : "position_role_split1",
+          "label" : "position_role Split 2"
+        } ]
+      }
+    },
+    "SPLIT1" : {
+      "action" : "split",
+      "sources" : [ "SPLIT0" ],
+      "parameters" : {
+        "sourceField" : "position_role_split1",
+        "delimiter" : ".",
+        "targetFields" : [ {
+          "name" : "position_role_new",
+          "label" : "Position Role"
+        }, {
+          "name" : "position_role_split1_split1",
+          "label" : "position_role Split 2 Split 1 "
+        } ]
+      }
+    },
+    "FORMULA10" : {
+      "action" : "formula",
+      "sources" : [ "SPLIT1" ],
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "TEXT",
+          "name" : "position_role_trim",
+          "label" : "Position Role",
+          "formulaExpression" : "coalesce(ltrim(\"position_role_new\", '403(g) '),ltrim(\"position_role\", '403(g) '))",
+          "precision" : 100,
+          "defaultValue" : ""
+        } ]
+      }
+    },
+    "DROP_FIELDS0" : {
+      "action" : "schema",
+      "sources" : [ "FORMULA10" ],
+      "parameters" : {
+        "fields" : [ ],
+        "slice" : {
+          "mode" : "DROP",
+          "ignoreMissingFields" : true,
+          "fields" : [ "position_role_split", "position_role_split1", "position_role_new", "position_role_split1_split1" ]
+        }
+      }
+    },
+    "FORMULA13" : {
+      "action" : "formula",
+      "sources" : [ "DROP_FIELDS0" ],
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "TEXT",
+          "name" : "month_name",
+          "label" : "month_name",
+          "formulaExpression" : "case when \"month\" = 'Jan' then '(01)Jan'\r\nwhen \"month\" = 'Feb' then '(02)Feb'\r\nwhen \"month\" = 'Mar' then '(03)Mar'\r\nwhen \"month\" = 'Apr' then '(04)Apr'\r\nwhen \"month\" = 'May' then '(05)May'\r\nwhen \"month\" = 'Jun' then '(06)Jun'\r\nwhen \"month\" = 'Jul' then '(07)JUl'\r\nwhen \"month\" = 'Aug' then '(08)Aug'\r\nwhen \"month\" = 'Sep' then '(09)Sep'\r\nwhen \"month\" = 'Oct' then '(10)Oct'\r\nwhen \"month\" = 'Nov' then '(11)Nov'\r\nwhen \"month\" = 'Dec' then '(12)Dec'\r\nelse 'NA' end",
+          "precision" : 255,
+          "defaultValue" : ""
+        } ]
+      }
+    },
+    "FORMULA15" : {
+      "action" : "formula",
+      "sources" : [ "FORMULA13" ],
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "TEXT",
+          "name" : "forecast_f_number_sort",
+          "label" : "forecast_f_number sort",
+          "formulaExpression" : "case \r\nwhen forecast_f_number = '2022F6' then '22a 2022F6'\r\nwhen forecast_f_number = '2022F7' then '22b 2022F7'\r\nwhen forecast_f_number = '2022F8' then '22c 2022F8'\r\nwhen forecast_f_number = '2022F9' then '22d 2022F6'\r\nwhen forecast_f_number = '2022F10' then '22e 2022F6'\r\nwhen forecast_f_number = '2022F11' then '22f 2022F6'\r\nwhen forecast_f_number = '2022F12' then '22g 2022F6'\r\nwhen forecast_f_number = '2022FINAL' then '22h 2022F6'\r\nwhen forecast_f_number = '2023F1' then '23a 2022F6'\r\nwhen forecast_f_number = '2023F2' then '23b 2022F6'\r\nwhen forecast_f_number = '2023F3' then '23c 2022F6'\r\n\r\nend",
+          "precision" : 255,
+          "defaultValue" : ""
+        } ]
+      }
+    },
+    "REPLACE1" : {
+      "action" : "formula",
+      "sources" : [ "REPLACE0" ],
+      "schema" : {
+        "fields" : [ {
+          "name" : "year_quarter_replace",
+          "newProperties" : {
+            "name" : "year_quarter"
+          }
+        } ],
+        "slice" : {
+          "mode" : "DROP",
+          "ignoreMissingFields" : true,
+          "fields" : [ "year_quarter" ]
+        }
+      },
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "TEXT",
+          "name" : "year_quarter_replace",
+          "label" : "year_quarter",
+          "formulaExpression" : "replace(year_quarter, '2022-Q1', '2022Q1')",
+          "precision" : 255
+        } ]
+      }
+    },
+    "REPLACE2" : {
+      "action" : "formula",
+      "sources" : [ "REPLACE1" ],
+      "schema" : {
+        "fields" : [ {
+          "name" : "year_quarter_replace",
+          "newProperties" : {
+            "name" : "year_quarter"
+          }
+        } ],
+        "slice" : {
+          "mode" : "DROP",
+          "ignoreMissingFields" : true,
+          "fields" : [ "year_quarter" ]
+        }
+      },
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "TEXT",
+          "name" : "year_quarter_replace",
+          "label" : "year_quarter",
+          "formulaExpression" : "replace(year_quarter, '2022-Q2', '2022Q2')",
+          "precision" : 255
+        } ]
+      }
+    },
+    "REPLACE3" : {
+      "action" : "formula",
+      "sources" : [ "REPLACE2" ],
+      "schema" : {
+        "fields" : [ {
+          "name" : "year_quarter_replace",
+          "newProperties" : {
+            "name" : "year_quarter"
+          }
+        } ],
+        "slice" : {
+          "mode" : "DROP",
+          "ignoreMissingFields" : true,
+          "fields" : [ "year_quarter" ]
+        }
+      },
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "TEXT",
+          "name" : "year_quarter_replace",
+          "label" : "year_quarter",
+          "formulaExpression" : "replace(year_quarter, '2022-Q4', '2022Q4')",
+          "precision" : 255
+        } ]
+      }
+    },
+    "REPLACE4" : {
+      "action" : "formula",
+      "sources" : [ "FORMULA15" ],
+      "schema" : {
+        "fields" : [ {
+          "name" : "year_quarter_replace",
+          "newProperties" : {
+            "name" : "year_quarter"
+          }
+        } ],
+        "slice" : {
+          "mode" : "DROP",
+          "ignoreMissingFields" : true,
+          "fields" : [ "year_quarter" ]
+        }
+      },
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "TEXT",
+          "name" : "year_quarter_replace",
+          "label" : "year_quarter",
+          "formulaExpression" : "replace(year_quarter, '-Q', 'Q')",
+          "precision" : 255
+        } ]
+      }
+    },
+    "FORMULA18" : {
+      "action" : "formula",
+      "sources" : [ "REPLACE4" ],
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "TEXT",
+          "name" : "forecast_f_number_sorted",
+          "label" : "forecast_f_number_sorted",
+          "formulaExpression" : "case forecast_f_number\r\nwhen'2023F1' then 'a'\r\nwhen'2023F2' then 'b'\r\nwhen'2023F3' then 'c'\r\nwhen'2023F4' then 'd'\r\nwhen'2023F5' then 'e'\r\nwhen'2023F6' then 'f'\r\nwhen'2023F7' then 'g'\r\nwhen'2023F8' then 'h'\r\nwhen'2023F9' then 'i'\r\nwhen'2023F10' then 'j'\r\nwhen'2023F11' then 'k'\r\nwhen'2023F12' then 'l'\r\nwhen'2023F13' then 'l'\r\nwhen'2024F1' then 'm'\r\nwhen'2024F2' then 'n'\r\nwhen'2024F3' then 'o'\r\nwhen'2024F4' then 'p'\r\nwhen'2024F5' then 'q'\r\nwhen'2024F6' then 'r'\r\nwhen'2024F7' then 't'\r\nwhen'2024F8' then 'u'\r\nwhen'2024F9' then 'v'\r\nwhen'2024F10' then 'w'\r\nwhen'2024F11' then 'x'\r\nwhen'2024F12' then 'y'\r\nwhen'2024F13' then 'z'\r\n\r\nelse forecast_f_number\r\n\r\nend\r\n\r\n",
+          "precision" : 255,
+          "defaultValue" : ""
+        } ]
+      }
+    },
+    "LOAD_DATASET3" : {
+      "action" : "load",
+      "sources" : [ ],
+      "parameters" : {
+        "fields" : [ "air_date", "id_acn_pgm", "nme_pgm", "id_composite_demo", "actuals", "program_name_norm", "budget", "year", "month", "quarter", "forecast_period", "dw_create_dt_UT" ],
+        "dataset" : {
+          "type" : "connectedDataset",
+          "label" : "pt_cams_nielsen_final_vw",
+          "connectionName" : "Salesforce_Developer_3",
+          "sourceObjectName" : "pt_cams_nielsen_final_vw"
+        },
+        "sampleDetails" : {
+          "type" : "TopN",
+          "sortBy" : [ ]
+        }
+      }
+    },
+    "OUTPUT3" : {
+      "action" : "save",
+      "sources" : [ "FORMULA16" ],
+      "parameters" : {
+        "fields" : [ ],
+        "dataset" : {
+          "type" : "analyticsDataset",
+          "label" : "CBS Finance - Nielsen CAMS",
+          "name" : "CBS_Finance_Nielsen",
+          "folderName" : "Ad_Sales_CBS_Finance"
+        },
+        "measuresToCurrencies" : [ ]
+      }
+    },
+    "FORMULA6" : {
+      "action" : "formula",
+      "sources" : [ "LOAD_DATASET3" ],
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "TEXT",
+          "name" : "Year_Quarter",
+          "label" : "Year_Quarter",
+          "formulaExpression" : "concat(\"year\",' - ', \"quarter\")",
+          "precision" : 255,
+          "defaultValue" : ""
+        } ]
+      }
+    },
+    "FORMULA7" : {
+      "action" : "formula",
+      "sources" : [ "FORMULA6" ],
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "TEXT",
+          "name" : "Year_Month",
+          "label" : "Year_Month",
+          "formulaExpression" : "concat(\"month\",' - ',\"year\")",
+          "precision" : 25,
+          "defaultValue" : ""
+        } ]
+      }
+    },
+    "FORMULA8" : {
+      "action" : "formula",
+      "sources" : [ "FORMULA7" ],
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "DATE_ONLY",
+          "name" : "FirstDayOfTheWeek",
+          "label" : "FirstDayOfTheWeek",
+          "formulaExpression" : "case when dayofweek(air_date) = 2 then to_date(air_date) end",
+          "format" : "dd/MM/yyyy",
+          "defaultValue" : ""
+        } ]
+      }
+    },
+    "FORMULA9" : {
+      "action" : "formula",
+      "sources" : [ "FORMULA8" ],
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "TEXT",
+          "name" : "air_date_formula",
+          "label" : "air_date Formula",
+          "formulaExpression" : "string(to_date(air_date))",
+          "precision" : 255,
+          "defaultValue" : ""
+        } ]
+      }
+    },
+    "FORMULA16" : {
+      "action" : "formula",
+      "sources" : [ "FORMULA9" ],
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "TEXT",
+          "name" : "reporting_group_nm",
+          "label" : "reporting_group_name ",
+          "formulaExpression" : "case program_name_norm\r\n when 'CBS MORNINGS' then 'CBS Mornings'\r\n when 'FACE THE NATION' then 'Face the Nation'\r\n when 'SUNDAY MORNING' then 'Sunday Morning'\r\n when 'MF EVENING NEWS'\r\n  then 'Evening News' \r\n  when '6-7 Morning News'\r\n   then 'Morning News'\r\n   when 'SATURDAY EARLY'\r\n    then 'Saturday Early'\r\n    \r\n end",
+          "precision" : 255,
+          "defaultValue" : ""
+        } ]
+      }
+    },
+    "LOAD_DATASET4" : {
+      "action" : "load",
+      "sources" : [ ],
+      "parameters" : {
+        "fields" : [ "acct_gl", "dept_gl", "show_gl", "div_gl", "revenue_or_cost_tier_1", "revenue_or_cost_tier_5", "reporting_name", "reporting_group_name", "reporting_category", "franchise_rollup", "amount", "year", "quarter", "month", "year_month", "salesforce_month_date", "year_quarter", "forecast_f_number", "dw_create_dt_UT", "system_source" ],
+        "dataset" : {
+          "type" : "connectedDataset",
+          "label" : "pt_staff_headcount_final_vw",
+          "connectionName" : "Salesforce_Developer_3",
+          "sourceObjectName" : "pt_staff_headcount_final_vw"
+        },
+        "sampleDetails" : {
+          "type" : "TopN",
+          "sortBy" : [ ]
+        }
+      }
+    },
+    "OUTPUT4" : {
+      "action" : "save",
+      "sources" : [ "LOAD_DATASET4" ],
+      "parameters" : {
+        "fields" : [ ],
+        "dataset" : {
+          "type" : "analyticsDataset",
+          "label" : "CBS Finance - Staff",
+          "name" : "CBS_Finance_Staff",
+          "folderName" : "Ad_Sales_CBS_Finance"
+        },
+        "measuresToCurrencies" : [ ]
+      }
+    },
+    "LOAD_DATASET5" : {
+      "action" : "load",
+      "sources" : [ ],
+      "parameters" : {
+        "fields" : [ "department_show", "position_name", "date_open", "annual_salary", "count", "year", "month", "quarter", "forecast_period", "dw_create_dt_UT" ],
+        "dataset" : {
+          "type" : "connectedDataset",
+          "label" : "pt_open_heads_final_vw",
+          "connectionName" : "Salesforce_Developer_3",
+          "sourceObjectName" : "pt_open_heads_final_vw"
+        },
+        "sampleDetails" : {
+          "type" : "TopN",
+          "sortBy" : [ ]
+        }
+      }
+    },
+    "OUTPUT5" : {
+      "action" : "save",
+      "sources" : [ "LOAD_DATASET5" ],
+      "parameters" : {
+        "fields" : [ ],
+        "dataset" : {
+          "type" : "analyticsDataset",
+          "label" : "CBS Finance - Staff Count",
+          "name" : "CBSFinanceStaffCount",
+          "folderName" : "Ad_Sales_CBS_Finance"
+        },
+        "measuresToCurrencies" : [ ]
+      }
+    },
+    "OUTPUT6" : {
+      "action" : "save",
+      "sources" : [ "BUCKET0" ],
+      "parameters" : {
+        "fields" : [ ],
+        "dataset" : {
+          "type" : "analyticsDataset",
+          "label" : "CBS Finance Revenue - Program",
+          "name" : "CBSFinanceRevenueProgram",
+          "folderName" : "Ad_Sales_CBS_Finance"
+        },
+        "measuresToCurrencies" : [ ]
+      }
+    },
+    "OUTPUT7" : {
+      "action" : "save",
+      "sources" : [ "BUCKET1" ],
+      "parameters" : {
+        "fields" : [ ],
+        "dataset" : {
+          "type" : "analyticsDataset",
+          "label" : "CBS Finance - Audience By Program",
+          "name" : "CBS_Finance_Audience_By_Program",
+          "folderName" : "Ad_Sales_CBS_Finance"
+        },
+        "measuresToCurrencies" : [ ]
+      }
+    },
+    "OUTPUT8" : {
+      "action" : "save",
+      "sources" : [ "FORMULA18" ],
+      "parameters" : {
+        "fields" : [ ],
+        "dataset" : {
+          "type" : "analyticsDataset",
+          "label" : "CBS Finance - Overtime By Program",
+          "name" : "CBSFinanceOvertimeByProgram",
+          "folderName" : "Ad_Sales_CBS_Finance"
+        },
+        "measuresToCurrencies" : [ ]
+      }
+    },
+    "OUTPUT9" : {
+      "action" : "save",
+      "sources" : [ "LOAD_DATASET4" ],
+      "parameters" : {
+        "fields" : [ ],
+        "dataset" : {
+          "type" : "analyticsDataset",
+          "label" : "CBS Finance - Staff By Program",
+          "name" : "CBSFinanceStaffByProgram",
+          "folderName" : "Ad_Sales_CBS_Finance"
+        },
+        "measuresToCurrencies" : [ ]
+      }
+    },
+    "OUTPUT10" : {
+      "action" : "save",
+      "sources" : [ "FORMULA16" ],
+      "parameters" : {
+        "fields" : [ ],
+        "dataset" : {
+          "type" : "analyticsDataset",
+          "label" : "CBS Finance - Nielsen CAMS By Program",
+          "name" : "CBSFinanceNielsenByProgram",
+          "folderName" : "Ad_Sales_CBS_Finance"
+        },
+        "measuresToCurrencies" : [ ]
+      }
+    },
+    "OUTPUT11" : {
+      "action" : "save",
+      "sources" : [ "LOAD_DATASET5" ],
+      "parameters" : {
+        "fields" : [ ],
+        "dataset" : {
+          "type" : "analyticsDataset",
+          "label" : "CBS Finance - Staff Count By Program",
+          "name" : "CBSFinanceStaffCountByProgram",
+          "folderName" : "Ad_Sales_CBS_Finance"
+        },
+        "measuresToCurrencies" : [ ]
+      }
+    }
+  },
+  "ui" : {
+    "nodes" : {
+      "LOAD_DATASET0" : {
+        "label" : "pt_oracle_tm1_finance_revbyshow_final_vw",
+        "type" : "LOAD_DATASET",
+        "top" : 112,
+        "left" : 112,
+        "parameters" : {
+          "sampleSize" : 10000
+        }
+      },
+      "OUTPUT0" : {
+        "label" : "News Output",
+        "description" : "",
+        "type" : "OUTPUT",
+        "top" : 112,
+        "left" : 532.7
+      },
+      "TRANSFORM0" : {
+        "label" : "Transform 0",
+        "type" : "TRANSFORM",
+        "top" : 112.30000000000001,
+        "left" : 391.3,
+        "graph" : {
+          "FORMULA3" : {
+            "parameters" : {
+              "type" : "BASE_FORMULA_UI"
+            },
+            "label" : "Month Name"
+          },
+          "FORMULA12" : {
+            "parameters" : {
+              "type" : "BASE_FORMULA_UI"
+            },
+            "label" : "Year Month Name"
+          },
+          "FORMULA14" : {
+            "parameters" : {
+              "type" : "BASE_FORMULA_UI"
+            },
+            "label" : "Formula"
+          },
+          "BUCKET0" : {
+            "label" : "Program Bucket"
+          },
+          "FORMULA17" : {
+            "parameters" : {
+              "type" : "BASE_FORMULA_UI"
+            },
+            "label" : "Formula"
+          }
+        },
+        "connectors" : [ {
+          "source" : "FORMULA3",
+          "target" : "FORMULA12"
+        }, {
+          "source" : "FORMULA12",
+          "target" : "FORMULA14"
+        }, {
+          "source" : "FORMULA17",
+          "target" : "BUCKET0"
+        }, {
+          "source" : "FORMULA14",
+          "target" : "FORMULA17"
+        } ]
+      },
+      "LOAD_DATASET1" : {
+        "label" : "pt_nielsen_news_data_final_vw",
+        "type" : "LOAD_DATASET",
+        "top" : 111.9,
+        "left" : 813.8,
+        "parameters" : {
+          "sampleSize" : 2000
+        }
+      },
+      "OUTPUT1" : {
+        "label" : "Audience Output",
+        "description" : "",
+        "type" : "OUTPUT",
+        "top" : 111.69999999999999,
+        "left" : 1093.8
+      },
+      "TRANSFORM1" : {
+        "label" : "Transform 1",
+        "type" : "TRANSFORM",
+        "top" : 111.69999999999999,
+        "left" : 953.8,
+        "graph" : {
+          "FORMULA4" : {
+            "parameters" : {
+              "type" : "BASE_FORMULA_UI"
+            },
+            "label" : "Formula"
+          },
+          "FORMULA11" : {
+            "parameters" : {
+              "type" : "BASE_FORMULA_UI"
+            },
+            "label" : "Year Month Name"
+          },
+          "BUCKET1" : {
+            "label" : "Bucket"
+          }
+        },
+        "connectors" : [ {
+          "source" : "FORMULA4",
+          "target" : "FORMULA11"
+        }, {
+          "source" : "FORMULA11",
+          "target" : "BUCKET1"
+        } ]
+      },
+      "LOAD_DATASET2" : {
+        "label" : "pt_staff_overtime_final_vw",
+        "type" : "LOAD_DATASET",
+        "top" : 392,
+        "left" : 112,
+        "parameters" : {
+          "sampleSize" : 2000
+        }
+      },
+      "OUTPUT2" : {
+        "label" : "Overtime Output",
+        "description" : "",
+        "type" : "OUTPUT",
+        "top" : 392.1,
+        "left" : 392
+      },
+      "TRANSFORM2" : {
+        "label" : "Transform 2",
+        "type" : "TRANSFORM",
+        "top" : 392,
+        "left" : 252,
+        "graph" : {
+          "FORMULA5" : {
+            "parameters" : {
+              "type" : "BASE_FORMULA_UI"
+            },
+            "label" : "OverTime Toggle"
+          },
+          "REPLACE0" : {
+            "parameters" : {
+              "type" : "REPLACE_UI"
+            },
+            "label" : "Replace"
+          },
+          "SPLIT0" : {
+            "label" : "Position Role Split 1"
+          },
+          "SPLIT1" : {
+            "label" : "Position Role Split2"
+          },
+          "FORMULA10" : {
+            "parameters" : {
+              "type" : "BASE_FORMULA_UI"
+            },
+            "label" : "Position Role Trim"
+          },
+          "DROP_FIELDS0" : {
+            "label" : "Drop Columns"
+          },
+          "FORMULA13" : {
+            "parameters" : {
+              "type" : "BASE_FORMULA_UI"
+            },
+            "label" : "Month Name sorting"
+          },
+          "FORMULA15" : {
+            "parameters" : {
+              "type" : "BASE_FORMULA_UI"
+            },
+            "label" : "Formula"
+          },
+          "REPLACE1" : {
+            "parameters" : {
+              "type" : "REPLACE_UI"
+            },
+            "label" : "Replace"
+          },
+          "REPLACE2" : {
+            "parameters" : {
+              "type" : "REPLACE_UI"
+            },
+            "label" : "Replace"
+          },
+          "REPLACE3" : {
+            "parameters" : {
+              "type" : "REPLACE_UI"
+            },
+            "label" : "Replace"
+          },
+          "REPLACE4" : {
+            "parameters" : {
+              "type" : "REPLACE_UI"
+            },
+            "label" : "Replace"
+          },
+          "FORMULA18" : {
+            "parameters" : {
+              "type" : "BASE_FORMULA_UI"
+            },
+            "label" : "Formula"
+          }
+        },
+        "connectors" : [ {
+          "source" : "FORMULA5",
+          "target" : "REPLACE0"
+        }, {
+          "source" : "SPLIT0",
+          "target" : "SPLIT1"
+        }, {
+          "source" : "SPLIT1",
+          "target" : "FORMULA10"
+        }, {
+          "source" : "FORMULA10",
+          "target" : "DROP_FIELDS0"
+        }, {
+          "source" : "DROP_FIELDS0",
+          "target" : "FORMULA13"
+        }, {
+          "source" : "FORMULA13",
+          "target" : "FORMULA15"
+        }, {
+          "source" : "REPLACE0",
+          "target" : "REPLACE1"
+        }, {
+          "source" : "REPLACE1",
+          "target" : "REPLACE2"
+        }, {
+          "source" : "REPLACE3",
+          "target" : "SPLIT0"
+        }, {
+          "source" : "REPLACE2",
+          "target" : "REPLACE3"
+        }, {
+          "source" : "FORMULA15",
+          "target" : "REPLACE4"
+        }, {
+          "source" : "REPLACE4",
+          "target" : "FORMULA18"
+        } ]
+      },
+      "LOAD_DATASET3" : {
+        "label" : "pt_cams_nielsen_final_vw",
+        "type" : "LOAD_DATASET",
+        "top" : 532,
+        "left" : 112,
+        "parameters" : {
+          "sampleSize" : 2000
+        }
+      },
+      "OUTPUT3" : {
+        "label" : "Nielsen CAMS Output",
+        "description" : "",
+        "type" : "OUTPUT",
+        "top" : 532,
+        "left" : 532.5
+      },
+      "TRANSFORM3" : {
+        "label" : "Transform 3",
+        "type" : "TRANSFORM",
+        "top" : 532,
+        "left" : 252,
+        "graph" : {
+          "FORMULA6" : {
+            "parameters" : {
+              "type" : "BASE_FORMULA_UI"
+            },
+            "label" : "Year_Quarter"
+          },
+          "FORMULA7" : {
+            "parameters" : {
+              "type" : "BASE_FORMULA_UI"
+            },
+            "label" : "Year_Month"
+          },
+          "FORMULA8" : {
+            "parameters" : {
+              "type" : "BASE_FORMULA_UI"
+            },
+            "label" : "FirstDayOfTheWeek"
+          },
+          "FORMULA9" : {
+            "parameters" : {
+              "type" : "BASE_FORMULA_UI"
+            },
+            "label" : "Air date Formula"
+          },
+          "FORMULA16" : {
+            "parameters" : {
+              "type" : "BASE_FORMULA_UI"
+            },
+            "label" : "Formula"
+          }
+        },
+        "connectors" : [ {
+          "source" : "FORMULA6",
+          "target" : "FORMULA7"
+        }, {
+          "source" : "FORMULA7",
+          "target" : "FORMULA8"
+        }, {
+          "source" : "FORMULA8",
+          "target" : "FORMULA9"
+        }, {
+          "source" : "FORMULA9",
+          "target" : "FORMULA16"
+        } ]
+      },
+      "LOAD_DATASET4" : {
+        "label" : "pt_staff_headcount_final_vw",
+        "type" : "LOAD_DATASET",
+        "top" : 392.1,
+        "left" : 812.5,
+        "parameters" : {
+          "sampleSize" : 2000
+        }
+      },
+      "OUTPUT4" : {
+        "label" : "Staff Output",
+        "description" : "",
+        "type" : "OUTPUT",
+        "top" : 392.3,
+        "left" : 1092.4
+      },
+      "LOAD_DATASET5" : {
+        "label" : "pt_open_heads_final_vw",
+        "type" : "LOAD_DATASET",
+        "top" : 532,
+        "left" : 813,
+        "parameters" : {
+          "sampleSize" : 2000
+        }
+      },
+      "OUTPUT5" : {
+        "label" : "Staff Count Output",
+        "description" : "",
+        "type" : "OUTPUT",
+        "top" : 532.3,
+        "left" : 1092.4
+      },
+      "OUTPUT6" : {
+        "label" : "By Program Dataset",
+        "description" : "",
+        "type" : "OUTPUT",
+        "top" : 251.8,
+        "left" : 391.9
+      },
+      "OUTPUT7" : {
+        "label" : "By Program Dataset",
+        "description" : "",
+        "type" : "OUTPUT",
+        "top" : 252.3,
+        "left" : 1092
+      },
+      "OUTPUT8" : {
+        "label" : "By Program Dataset",
+        "description" : "",
+        "type" : "OUTPUT",
+        "top" : 391.9,
+        "left" : 532
+      },
+      "OUTPUT9" : {
+        "label" : "By Program Dataset",
+        "description" : "",
+        "type" : "OUTPUT",
+        "top" : 392,
+        "left" : 952
+      },
+      "OUTPUT10" : {
+        "label" : "By Program Dataset",
+        "description" : "",
+        "type" : "OUTPUT",
+        "top" : 532,
+        "left" : 392
+      },
+      "OUTPUT11" : {
+        "label" : "By Program Dataset",
+        "description" : "",
+        "type" : "OUTPUT",
+        "top" : 532.7,
+        "left" : 952
+      }
+    },
+    "connectors" : [ {
+      "source" : "LOAD_DATASET0",
+      "target" : "TRANSFORM0"
+    }, {
+      "source" : "TRANSFORM1",
+      "target" : "OUTPUT1"
+    }, {
+      "source" : "TRANSFORM0",
+      "target" : "OUTPUT0"
+    }, {
+      "source" : "LOAD_DATASET1",
+      "target" : "TRANSFORM1"
+    }, {
+      "source" : "TRANSFORM2",
+      "target" : "OUTPUT2"
+    }, {
+      "source" : "LOAD_DATASET2",
+      "target" : "TRANSFORM2"
+    }, {
+      "source" : "TRANSFORM3",
+      "target" : "OUTPUT3"
+    }, {
+      "source" : "LOAD_DATASET3",
+      "target" : "TRANSFORM3"
+    }, {
+      "source" : "LOAD_DATASET4",
+      "target" : "OUTPUT4"
+    }, {
+      "source" : "LOAD_DATASET5",
+      "target" : "OUTPUT5"
+    }, {
+      "source" : "TRANSFORM0",
+      "target" : "OUTPUT6"
+    }, {
+      "source" : "TRANSFORM1",
+      "target" : "OUTPUT7"
+    }, {
+      "source" : "TRANSFORM2",
+      "target" : "OUTPUT8"
+    }, {
+      "source" : "LOAD_DATASET4",
+      "target" : "OUTPUT9"
+    }, {
+      "source" : "TRANSFORM3",
+      "target" : "OUTPUT10"
+    }, {
+      "source" : "LOAD_DATASET5",
+      "target" : "OUTPUT11"
+    } ],
+    "hiddenColumns" : [ ]
+  },
+  "runMode" : "full"
+}

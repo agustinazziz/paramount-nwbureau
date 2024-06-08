@@ -1,0 +1,24 @@
+:host{
+    --com-c-cart-contents-heading-border-width:none;
+    --dxp-s-form-element-width-border:none;
+    --com-c-cart-contents-heading-border-color:none;
+    --dxp-s-dropdown-color-border:none;
+}
+
+.cart-spinner {
+    display: none;
+}
+
+.summary-section {
+    margin-top: 6.3rem;
+}
+
+@media (max-width: 768px) {
+    .summary-section {
+        margin-top: 0;
+    }
+    .cart-section {
+        margin-bottom: 18rem; /*offset sticky summary*/
+    }
+    
+}

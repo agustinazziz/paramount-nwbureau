@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>GC 03/23/23: To be used on any integration. Will hold all, and only, the failures from the inbound and outbound messages. It has a platform event flow called &quot;Create Integration Log&quot; that inserts the values on the Integration_Log__c custom object.</description>
+    <eventType>HighVolume</eventType>
+    <label>Staging Log</label>
+    <pluralLabel>Staging Logs</pluralLabel>
+    <publishBehavior>PublishAfterCommit</publishBehavior>
+</CustomObject>

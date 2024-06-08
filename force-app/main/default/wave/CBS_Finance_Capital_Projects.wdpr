@@ -1,0 +1,274 @@
+{
+  "version" : "56.0",
+  "nodes" : {
+    "LOAD_DATASET0" : {
+      "action" : "load",
+      "sources" : [ ],
+      "parameters" : {
+        "fields" : [ "Id", "Name", "Capital_Project_Budget__c", "Approved_Budget__c", "CPR_Authorized_Amount__c", "CPR_ID__c", "Category__c", "Description__c", "Forecasted_Budget__c", "Project_Category__c", "Project_Status__c", "End_date__c" ],
+        "dataset" : {
+          "type" : "connectedDataset",
+          "label" : "Capital_Project_Budget_Line__c",
+          "connectionName" : "SFDC_LOCAL",
+          "sourceObjectName" : "Capital_Project_Budget_Line__c"
+        },
+        "sampleDetails" : {
+          "type" : "TopN",
+          "sortBy" : [ ]
+        }
+      }
+    },
+    "LOAD_DATASET1" : {
+      "action" : "load",
+      "sources" : [ ],
+      "parameters" : {
+        "fields" : [ "Id", "Name", "Capital_Project_Budget_Line__c", "Month__c", "Month_Date__c", "Amount__c" ],
+        "dataset" : {
+          "type" : "connectedDataset",
+          "label" : "Capital_Project_Budget_Line_Monthly__c",
+          "connectionName" : "SFDC_LOCAL",
+          "sourceObjectName" : "Capital_Project_Budget_Line_Monthly__c"
+        },
+        "sampleDetails" : {
+          "type" : "TopN",
+          "sortBy" : [ ]
+        }
+      }
+    },
+    "LOAD_DATASET2" : {
+      "action" : "load",
+      "sources" : [ ],
+      "parameters" : {
+        "fields" : [ "Id", "Name", "Year__c", "Forecast_Number__c" ],
+        "dataset" : {
+          "type" : "connectedDataset",
+          "label" : "Capital_Project_Budget__c",
+          "connectionName" : "SFDC_LOCAL",
+          "sourceObjectName" : "Capital_Project_Budget__c"
+        },
+        "sampleDetails" : {
+          "type" : "TopN",
+          "sortBy" : [ ]
+        }
+      }
+    },
+    "JOIN0" : {
+      "action" : "join",
+      "sources" : [ "LOAD_DATASET1", "LOAD_DATASET0" ],
+      "schema" : {
+        "fields" : [ ],
+        "slice" : {
+          "mode" : "DROP",
+          "ignoreMissingFields" : true,
+          "fields" : [ ]
+        }
+      },
+      "parameters" : {
+        "joinType" : "LOOKUP",
+        "leftKeys" : [ "Capital_Project_Budget_Line__c" ],
+        "rightQualifier" : "Line",
+        "rightKeys" : [ "Id" ]
+      }
+    },
+    "JOIN1" : {
+      "action" : "join",
+      "sources" : [ "JOIN0", "LOAD_DATASET2" ],
+      "schema" : {
+        "fields" : [ ],
+        "slice" : {
+          "mode" : "DROP",
+          "ignoreMissingFields" : true,
+          "fields" : [ ]
+        }
+      },
+      "parameters" : {
+        "joinType" : "LOOKUP",
+        "leftKeys" : [ "Line.Capital_Project_Budget__c" ],
+        "rightQualifier" : "Capital_Pr",
+        "rightKeys" : [ "Id" ]
+      }
+    },
+    "OUTPUT0" : {
+      "action" : "save",
+      "sources" : [ "FORMULA0" ],
+      "parameters" : {
+        "fields" : [ ],
+        "dataset" : {
+          "type" : "analyticsDataset",
+          "label" : "CBS Finance - Capital Project",
+          "name" : "CBS_Finance_Capital_Project",
+          "folderName" : "Ad_Sales_CBS_Finance"
+        },
+        "measuresToCurrencies" : [ ]
+      }
+    },
+    "FORMULA0" : {
+      "action" : "formula",
+      "sources" : [ "JOIN1" ],
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "TEXT",
+          "name" : "Month",
+          "label" : "Month",
+          "formulaExpression" : "substr(Month__c, 1, 3)",
+          "precision" : 3,
+          "defaultValue" : ""
+        } ]
+      }
+    },
+    "OUTPUT1" : {
+      "action" : "save",
+      "sources" : [ "FORMULA0" ],
+      "parameters" : {
+        "fields" : [ ],
+        "dataset" : {
+          "type" : "analyticsDataset",
+          "label" : "CBS Finance - Capital Project By Program",
+          "name" : "CBS_Finance_CapitalProject_ByProgram",
+          "folderName" : "Ad_Sales_CBS_Finance"
+        },
+        "measuresToCurrencies" : [ ]
+      }
+    },
+    "OUTPUT2" : {
+      "action" : "save",
+      "sources" : [ "LOAD_DATASET0" ],
+      "parameters" : {
+        "fields" : [ ],
+        "dataset" : {
+          "type" : "analyticsDataset",
+          "label" : "Capital_Project_Budget_test",
+          "name" : "Capital_Project_Budget_test"
+        },
+        "measuresToCurrencies" : [ ]
+      }
+    },
+    "OUTPUT3" : {
+      "action" : "save",
+      "sources" : [ "LOAD_DATASET1" ],
+      "parameters" : {
+        "fields" : [ ],
+        "dataset" : {
+          "type" : "analyticsDataset",
+          "label" : "Cap_proj_budget_line_monthly_test",
+          "name" : "Cap_proj_budget_line_monthly_test"
+        },
+        "measuresToCurrencies" : [ ]
+      }
+    }
+  },
+  "ui" : {
+    "nodes" : {
+      "LOAD_DATASET0" : {
+        "label" : "Capital_Project_Budget_Line__c",
+        "type" : "LOAD_DATASET",
+        "top" : 112,
+        "left" : 112,
+        "parameters" : {
+          "sampleSize" : 10000
+        }
+      },
+      "LOAD_DATASET1" : {
+        "label" : "Capital_Project_Budget_Line_Monthly__c",
+        "type" : "LOAD_DATASET",
+        "top" : 252,
+        "left" : 112,
+        "parameters" : {
+          "sampleSize" : 2000
+        }
+      },
+      "LOAD_DATASET2" : {
+        "label" : "Capital_Project_Budget__c",
+        "type" : "LOAD_DATASET",
+        "top" : 392,
+        "left" : 112,
+        "parameters" : {
+          "sampleSize" : 10000
+        }
+      },
+      "JOIN0" : {
+        "label" : "Join 0",
+        "type" : "JOIN",
+        "top" : 252,
+        "left" : 252
+      },
+      "JOIN1" : {
+        "label" : "Join 1",
+        "type" : "JOIN",
+        "top" : 252,
+        "left" : 392
+      },
+      "OUTPUT0" : {
+        "label" : "Capital Project",
+        "description" : "",
+        "type" : "OUTPUT",
+        "top" : 252,
+        "left" : 672
+      },
+      "TRANSFORM0" : {
+        "label" : "Transform 0",
+        "type" : "TRANSFORM",
+        "top" : 252,
+        "left" : 532,
+        "graph" : {
+          "FORMULA0" : {
+            "parameters" : {
+              "type" : "BASE_FORMULA_UI"
+            },
+            "label" : "Formula"
+          }
+        },
+        "connectors" : [ ]
+      },
+      "OUTPUT1" : {
+        "label" : "By Program",
+        "description" : "",
+        "type" : "OUTPUT",
+        "top" : 392.4,
+        "left" : 672
+      },
+      "OUTPUT2" : {
+        "label" : "Output 2",
+        "type" : "OUTPUT",
+        "top" : 112,
+        "left" : 392.2
+      },
+      "OUTPUT3" : {
+        "label" : "Output 3",
+        "type" : "OUTPUT",
+        "top" : 532.2,
+        "left" : 252.3
+      }
+    },
+    "connectors" : [ {
+      "source" : "LOAD_DATASET1",
+      "target" : "JOIN0"
+    }, {
+      "source" : "LOAD_DATASET0",
+      "target" : "JOIN0"
+    }, {
+      "source" : "JOIN0",
+      "target" : "JOIN1"
+    }, {
+      "source" : "LOAD_DATASET2",
+      "target" : "JOIN1"
+    }, {
+      "source" : "TRANSFORM0",
+      "target" : "OUTPUT0"
+    }, {
+      "source" : "JOIN1",
+      "target" : "TRANSFORM0"
+    }, {
+      "source" : "TRANSFORM0",
+      "target" : "OUTPUT1"
+    }, {
+      "source" : "LOAD_DATASET0",
+      "target" : "OUTPUT2"
+    }, {
+      "source" : "LOAD_DATASET1",
+      "target" : "OUTPUT3"
+    } ],
+    "hiddenColumns" : [ ]
+  }
+}

@@ -1,0 +1,59 @@
+.THIS {
+    background: rgba(255, 255, 255, 0);    
+}
+.THIS:hover {
+    background: t(darkBlue);
+}
+.THIS .employee-card {
+    border: none;
+    border-radius: 0px;
+    background: t(darkBlue);
+    color: rgb(255, 255, 255);
+}
+.THIS .employee-column {
+    background: t(darkBlue);
+    border-bottom: 0.5px solid #FFFFFF;
+}
+
+.THIS .day-column {
+    border-bottom: 0.5px solid t(darkBlue);
+}
+
+.THIS .slds-card__header{
+    padding: 0;
+}
+
+.THIS .responsive-name {
+    font-size: 12px;
+}
+
+.THIS .responsive-title {
+    font-size: 12px;
+}
+
+@media (max-width: 1200px) {
+    .THIS .responsive-name {
+        font-size: 10px;
+    }
+
+    .THIS .responsive-cross-button {
+        width: 2vw;
+        height: 2vw;
+    }
+
+    .THIS .responsive-title {
+        font-size: 10px;
+    }
+}
+
+
+/* AA 05/24/2024 Added width to pill container */
+.THIS .slds-pill__action {
+    width: 10vw;
+}
+
+@media (max-width: 1200px) {
+    .THIS .responsive-button {
+            width: 1vw;
+        }
+}
