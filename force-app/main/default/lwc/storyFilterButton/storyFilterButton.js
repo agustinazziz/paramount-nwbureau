@@ -17,10 +17,6 @@ export default class StoryFilterButton extends LightningElement {
     fillDropdown() {
         
         //AA 6/4/2024 #1590 Synchronized filter
-        if (this.filterController == 'employees' && this.storiesFilterByEmployees.length > 0) {
-            this.stories = this.storiesFilterByEmployees;
-        }
-        else {
             this.storiesFilterByEmployees = [];
             let StoriesInDashboard = [];
             let storyListUniqueValues = [];
@@ -42,13 +38,9 @@ export default class StoryFilterButton extends LightningElement {
     
                 
                 //AA 6/4/2024 #1590 Synchronized filter
-                if(filteredStoriesCounter.size < storiesCounter.size && this.filterController == 'employees'){
                     StoriesInDashboard = this.fillStories(this.weekDataFilter, daysOfWeek);
                     
-                }else{
-                    StoriesInDashboard = this.fillStories(JSON.parse(this.weekDataClean), daysOfWeek);
-        
-                }
+
 
     
             let StoriesInDashboardTrim = Array.from(new Set(StoriesInDashboard.map(JSON.stringify))).map(JSON.parse);
@@ -75,7 +67,7 @@ export default class StoryFilterButton extends LightningElement {
                 this.stories.sort((a, b) => a.label.localeCompare(b.label));
                 this.allClass = "sendStory";
             }
-        }
+
         
     }
     
@@ -214,6 +206,12 @@ export default class StoryFilterButton extends LightningElement {
     closeModal() {
         this.dropdownClass = "slds-size_1-of-1 slds-dropdown-trigger slds-dropdown-trigger_click slds-is-closed";
         this.dropdownBool = false;
+    }
+
+    clear() {
+            this.handleDispatch('clear', '', '');
+            this.closeModal();
+
     }
 
     handleDispatch(value, filterController, cleanEmployees) {
