@@ -284,48 +284,39 @@
     },
     //GL 4/18/24 #1553: aggregate this function to grab the value form lwc
     getStoriesFromStoryFilter: function (component, event, helper) {
-        component.set("v.storiesFiltered", event.getParam('value'));
-        component.find("employeeFilterButton").closeModal();
-
         //AA 6/4/2024 #1590 Synchronized filter
-        if (component.get("v.employeeFiltered").length == 0 && event.getParam('value').length > 0) {
-            component.set("v.filterController", 'stories');
-        }
-        if (event.getParam('filterController') == 'stories' && event.getParam('value').length == 0){
-            component.find("employeeFilterButton").noFiltering();
-            component.set("v.employeeFiltered", []);
-            component.set("v.filterController", 'employees');
-        }
-        if(event.getParam('cleanEmployees')){
-            component.set("v.employeeFiltered", []);
-            component.find("employeeFilterButton").cleanList();
-            component.find("employeeFilterButton").noFiltering();
+        if(event.getParam('value').length > 0){
+            component.set("v.storiesFiltered", [...component.get("v.storiesFiltered"), ...event.getParam('value')]);
 
-        }
+        }    
+        if (event.getParam('value') == 'clear') {
+            component.find("storyFilterButton").noFiltering();
+            component.set("v.storiesFiltered", []);
+        } 
+
+        component.find("employeeFilterButton").closeModal();
 
         helper.refreshView(component, event);
     },
     
     getStoriesFromEmployeeFilter: function (component, event, helper) {
-        component.set("v.employeeFiltered", event.getParam('value'));
-        component.find("storyFilterButton").closeModal();
-        
         //AA 6/4/2024 #1590 Synchronized filter
-        if (component.get("v.storiesFiltered").length == 0 && event.getParam('value').length > 0) {
-            component.set("v.filterController", 'employees');
+        if(event.getParam('value').length > 0){
+            component.set("v.employeeFiltered", [...component.get("v.employeeFiltered"), ...event.getParam('value')]);
 
         }
-        if (event.getParam('filterController') == 'employees' && event.getParam('value').length == 0){
-            component.find("storyFilterButton").noFiltering();
-            component.set("v.storiesFiltered", []);
-            component.set("v.filterController", 'stories');
+        try {
+            if (event.getParam('value') == 'clear') {
+                component.find("employeeFilterButton").noFiltering();
+                component.set("v.employeeFiltered", []);
+            }
+            
+        } catch (error) {
+            console.log(error);
         }
-        if(event.getParam('cleanStories')){
-            component.set("v.storiesFiltered", []);
-            component.find("storyFilterButton").cleanList();
-            component.find("storyFilterButton").noFiltering();
-        }
-        
+
+        component.find("storyFilterButton").closeModal();
+    
         helper.refreshView(component, event);
     },
 
