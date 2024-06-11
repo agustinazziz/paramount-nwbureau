@@ -54,12 +54,12 @@ export default class EmployeeFilterButton extends LightningElement {
 
         
         //AA 6/4/2024 #1590 Synchronized filter
-        if (this.sendFilter == 'stories' && this.filterController == 'stories' && this.employeeFilterByStories.length != 0){                 
-            this.employees = this.employeeFilterByStories;
-            this.auxList = [];
-                
+        if (this.sendFilter == 'stories' && this.filterController == 'stories' && this.employeeFilterByStories.length != 0){    
+            console.log('else if');             
+            this.auxList = [];                
 
-        }else if (this.weekDataFilter.length < employeeList.length && this.filterController == 'stories') {
+        }
+        if (this.weekDataFilter.length < employeeList.length) {
             let employeeFilterList = [];
             this.employeeFilterByStories = [];
 
@@ -75,10 +75,8 @@ export default class EmployeeFilterButton extends LightningElement {
             
             employeeFilterList = [];
             
-        } else if (this.auxList.length > 0) {
-            this.employeeFilterByStories = [];
-            this.employees = this.auxList;
-        } else {
+        }else {
+            console.log('else');
             this.employeeFilterByStories = [];
             this.employees = [{ label: "All", value: "All", class: "sendEmployee" }, ...employeeList];
         }
@@ -150,6 +148,12 @@ export default class EmployeeFilterButton extends LightningElement {
         this.dropdownClass = "slds-size_1-of-1 slds-dropdown-trigger slds-dropdown-trigger_click slds-is-closed";
         this.dropdownBool = false;
     }
+
+    clear() {
+        this.handleDispatch('clear', '', '');
+        this.closeModal();
+
+}
 
     handleDispatch(value, filterController, cleanStories) {
         const valueChangeEvent = new CustomEvent("valuechange", { detail: { value, filterController, cleanStories } });
